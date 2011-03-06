@@ -41,8 +41,7 @@ div.extension.selected .stars {
 }
 
 /* ### selector #### */
-/* ############ font filter ################*/
-#filter,#sort {
+#filter, #sort, .right {
 	float: right;
 	position: relative;
 }

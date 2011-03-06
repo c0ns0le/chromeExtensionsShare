@@ -2,13 +2,8 @@
  * The background page is asking us to find userpics on the page.
  */
 
-chrome.extension.sendRequest({
-	'action' : 'fetchTabInfo'
-}, fetchTabInfo);
 
-function fetchTabInfo(backgroundPage) {
-	console.log('content_scripts.fetchTabInfo:' + backgroundPage);
-}
+var _lastExport = 'text';
 
 function selectAll(select) {
 	if (select) {
@@ -41,10 +36,16 @@ function select(type) {
 	return false;
 }
 
+function reExport(){
+	exportTo(_lastExport);
+}
+
 function exportTo(type) {
 	// chrome.management.getAll(function(extensionInfos) {
 	console.log('exporting to:' + type);
-
+	
+	var descriptionOn = $('#description:checked').val();
+	_lastExport = type;
 	var selectedExtensions = new Array();
 
 	// for ( var i in extensionInfos) {
@@ -60,47 +61,47 @@ function exportTo(type) {
 	}
 
 	console.log(selectedExtensions);
-	if(selectedExtensions == undefined || selectedExtensions.length == 0){
+	if (selectedExtensions == undefined || selectedExtensions.length == 0) {
 		alert('Please select some extensions');
 		return;
 	}
-	
+
 	var code = '';
+
 	switch (type) {
 	case 'bbcode':
-		code = generateBBCode(selectedExtensions);
+		code = generateBBCode(selectedExtensions, descriptionOn);
 		break;
 	case 'html':
-		code = generateHTML(selectedExtensions);
+		code = generateHTML(selectedExtensions, descriptionOn);
 		break;
 	case 'text':
-		code = generateText(selectedExtensions);
+		code = generateText(selectedExtensions, descriptionOn);
 		break;
 	case 'wiki':
-		code = generateWiki(selectedExtensions);
+		code = generateWiki(selectedExtensions, descriptionOn);
 		break;
 	default:
 		break;
 	}
 
 	$('#nav2 li.selected').removeClass('selected');
-	
+
 	if (code != undefined && code != '') {
 		$('#export').val(code);
 		$('#nav2 li.' + type).addClass('selected');
-		
-		$("#dialog-modal").dialog({
-			modal: true,
-			draggable: false,
-			position: 'center',
-			width: 800,
-			height: 600,
-			closeOnEscape: true
-		});
-		
-		//$('#dialog-modal').dialog('open');
-	}
 
+		$("#dialog-modal").dialog({
+			modal : true,
+			draggable : false,
+			position : 'center',
+			width : 800,
+			height : 600,
+			closeOnEscape : true
+		});
+
+		// $('#dialog-modal').dialog('open');
+	}
 
 	// });
 }
@@ -157,7 +158,7 @@ function populateExtensions(extensionInfos) {
 	return counter;
 }
 
-function generateBBCode(extensionInfos) {
+function generateBBCode(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
 
@@ -171,15 +172,20 @@ function generateBBCode(extensionInfos) {
 
 		result = result + '- [url='
 				+ 'https://chrome.google.com/webstore/detail/'
-				+ extensionInfo.id + ']' + extensionInfo.name + '[/url] '
+				+ extensionInfo.id + ']' + extensionInfo.name + '[/url] ' + 'v'
 				+ extensionInfo.version + '\n';
+
+		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+			result = result + ' [i]' + extensionInfo.description + '[/i]\n';
+		}
+
 		result = result + '\n';
 	}
 
 	return result;
 }
 
-function generateHTML(extensionInfos) {
+function generateHTML(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
 	result = result
@@ -202,7 +208,13 @@ function generateHTML(extensionInfos) {
 		result = result + '<li> <a href="'
 				+ 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + '" target="_blank">' + extensionInfo.name
-				+ '</a> v.' + extensionInfo.version + '</li>\n';
+				+ '</a> v' + extensionInfo.version;
+
+		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+			result = result + '<br><i>' + extensionInfo.description + '</i>\n';
+		}
+
+		+'</li>\n';
 	}
 
 	result = result + '</ul>\n';
@@ -211,7 +223,7 @@ function generateHTML(extensionInfos) {
 
 }
 
-function generateText(extensionInfos) {
+function generateText(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
 	result = result + 'Generated: ' + curdate.toGMTString() + '\n';
@@ -222,16 +234,20 @@ function generateText(extensionInfos) {
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
 
-		result = result + '- ' + extensionInfo.name + ' '
+		result = result + '- ' + extensionInfo.name + ' v'
 				+ extensionInfo.version + ': '
 				+ 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + '\n';
+
+		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+			result = result + '   ' + extensionInfo.description + '\n';
+		}
 	}
 
 	return result;
 }
 
-function generateWiki(extensionInfos) {
+function generateWiki(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
 	result = result + "'''Generated:''' " + curdate.toGMTString() + '\n\n';
@@ -245,6 +261,10 @@ function generateWiki(extensionInfos) {
 		result = result + '* [' + 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + ' ' + extensionInfo.name + '] v'
 				+ extensionInfo.version + '' + '\n';
+
+		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+			result = result + ":''" + extensionInfo.description + "''\n";
+		}
 	}
 
 	return result;

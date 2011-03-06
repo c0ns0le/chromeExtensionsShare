@@ -17,16 +17,6 @@
 <script type="text/javascript" src="lib/3rdparty/jquery-ui-1.8.10.custom.min.js"></script>
 
 <script type="text/javascript">
-/*
- * http://chrome.google.com/extensions/permalink?id=klhlhobihlonchbicbgkjdapbbolmmaj
- * https://chrome.google.com/webstore/detail/gighmmpiobklfepjocnamgkkbiglidom		 
- * https://chrome.google.com/webstore/img/klhlhobihlonchbicbgkjdapbbolmmaj/2323432/logo128	
- *	 style="background-image:url(data:image/png;base64,
- * post to buzz: http://www.google.com/buzz/post?url=http://slides.html5rocks.com/
- * twitter: http://twitter.com/share?_=1299226766058&count=horizontal&text=Pushing%20Our%20(Tweet)%20Button&url=http%3A%2F%2Fblog.twitter.com%2F2010%2F08%2Fpushing-our-tweet-button.html&via=twitter
- * url shortener: https://www.googleapis.com/urlshortener/v1/url?shortUrl=http://goo.gl/fbsS&key=AIzaSyBB6ue8uBJBRtgQSFDrdwoTfWNEBmgAvuo		 
- * pastebin:
- */
 var template;
 var _extensionInfos = new Array();
 
@@ -58,7 +48,10 @@ $(document).ready(function() {
 
 function addListeners() {
 	
-
+	$('#description').click(function(){
+		reExport();	
+	});
+	
 	
 	/*
 	 * close dialog on widget overlay click
@@ -238,6 +231,10 @@ function addListeners() {
 		<li class="text"><a onclick="exportTo('text')">TEXT</a></li>
 		<li class="wiki"><a onclick="exportTo('wiki')">Wiki</a></li>
 	 </ul>
+	 
+	 <div class="right"><input type="checkbox" id="description">
+	 <label for="description">include description</label>
+	 </div>
 	</div>
 	
 	<textarea id="export" style="width:760px;height:500px"></textarea>
