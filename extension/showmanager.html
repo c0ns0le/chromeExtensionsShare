@@ -6,13 +6,15 @@
 
 <link rel="stylesheet" href="css/extensions.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/content.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/chrome/jquery-ui-1.8.10.custom.css" type="text/css" media="all" />
 
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACxUlEQVQ4y2WSTWgdVRSAvzn3zryZecbaaJpaoYlPRWil+IvaCiJKwY1YQVDBqgsRQfxZKLgS1IWCFFoX4g8xYhX/QHeCYHXnpq0lirZUXUgbtWh4yWuSyZs557h4L9FQuJfLvfB955x7TrLlqvvubLUveClNs+skRCQBB9wdBgvw/+7umOrhur/4/O9Hpw/FVnv03aIsx/OiIM0iIJgpZg1uCmY4CZ4IkgScBDO7vl4p33f3yRjTdDwvC8p2mxAiu66dYO+enVw2uRkzw8w5MvMrUx8fYubELBJbkAgSwmagIyEIaZoiIfLcY7t58Zl76EyMo2q8euAgas6ObZPse+ERbrupQ1MvAU4IkX6/f76s1rXrmgl237IdMx9u4823p1A1VI1GjWcfv5ctF6bU1VnMGuq6FnHATHlwz82YGWoDQG3wffr/NzXuuuMGVpa6NPUy3W43CBimDZ2t46j5OgBYi642OHfeeDUrSwvU/Yq5ubkobudGWYUAfjrx2zpJWRY0/WW0run1ekHcwfVcWFU5OLWfBx5+gp+HElXj1Ok/MWswa6iqSsTdgITDM7+spbkqubwzyfRb+3jo0afXBEe+/wGG85DnuYkPZ236k2/W1boKdC6d4NuvPkPNmF84y/QHnyOxQCRlZGRExQ0cYeb4LK8c+GjYgaHIBt1QNeYXerz+xjR/z1fErE0iOaOjoxrNDQeSkPL1dyc5fvI17r/7VnZsv4KiLJn94y+OHvuR9z78gn+6FVm5kdAaIZHI2NhYK7raaXO/xJOApAWnzizx8v5P6S/3aJpl3JQkCUjMaZ23iZiNILEgL7L5LMsuihdv2vBkr9J3mn6zUWLApUVobSCVFqHpgzuOkEhEYgsPGXmRLT619/YvgZi4+5XANmCrqpbunlRVJYuLi6GqKmmaJknT1PM8t7IsNc9ziTECnAGO/QuYgs28GHSMDAAAAABJRU5ErkJggg==">
 
 
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACb0lEQVR4nH2SX0jTURTHv3f77Y+JP00nygqcWYFluhJSNFPKoRZZDxWU5FsPQS89BdF7+JBQ1EsQEhXVQy9FKWgtooYkUi1zmqGzP9M023Jbv+233++cHrZl/j1w+V7OPfdzzrnnGrGCVdfuNZWWlRfmZMvRqakArxSzqp06fXbrrV6v/77HT513e140txyQ14o3LHWUVTWcM2VkFSV0Erkbt9QXb9t1fC2AtNTxJxKOJIihE4OIkYgribUAosHVYjvYduYKEQlihjBIeTZHqYuIRTweS/yYGO6GwRhlYgSG+7u6rl/uXVSBECKroKTsJKWy6szQ9KSy0WyylVS06sQgZsyMDw0AWAxgBtSEpiuR+YhpnSwTQ6RB9E+RBGL5QIz2DXbx++uI+03Pg/NKcPp93qbyVh0w6gRovFAVMRCPBKdrD7cfqaxz1eRnGgbHPo0qYinx4o1H3bJ9czMxQyeAOVk+AUllBjMQ/Dz48OWdzmPLpmCwZOZqqZ4plZlTmr5MzJDkfKfVajVLdY0tdueepva5wMQr+/bqE5acgt36KgBNjalCspiJmefH3z2ORqOqxMwWe6XrUuHOVBARz/r6nyq/pjyyY0drRmFJVRowM9jdoavKpKaEQ9/Hhp74fD6WAGAhIzA3OtD3sffeUbfbHdu3v/Gqs+3CBylzvYMYIF0L3r7WcXNRy8xJQHopodm3brc7BgDPn/VF1HBwRE8/3go/UWJdUyM/v00yQxADJtlWUVNTa/F4Xsfrmw7lszAWxeYCX5gBUpXwsq8MAE6n05reA+BQKBT3+/3sKC4WOdnZlvQZESW8Xq/2P+AvA3ePYZXlQc4AAAAASUVORK5CYII=">
 <script src="js/analytics.js"></script>
 <script src="js/chromeExtensionsShare.js"></script>
 <script type="text/javascript" src="lib/3rdparty/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="lib/3rdparty/jquery-ui-1.8.10.custom.min.js"></script>
 
 <script type="text/javascript">
 /*
@@ -26,6 +28,8 @@
  * pastebin:
  */
 var template;
+var _extensionInfos = new Array();
+
 $(document).ready(function() {
 		var bkg = chrome.extension.getBackgroundPage();
 		_gaq.push(['_trackPageview','/extensions/show/'])
@@ -49,12 +53,21 @@ $(document).ready(function() {
 			addListeners();
 			
 		});
-		
 });
 
 
 function addListeners() {
+	
 
+	
+	/*
+	 * close dialog on widget overlay click
+	 */
+	 $('.ui-widget-overlay').live("click", function() {
+         $("#dialog-modal").dialog("close");
+      });  
+	
+	
 	$('.extension').hover(function() {
 		$('.extension-actions',this).show();	
 	}, function() {
@@ -79,19 +92,36 @@ function addListeners() {
 	});
 
 	$('.share-twitter').click(function() {
-		var text = 'Pushing%20Our%20(Tweet)%20Button&url=http%3A%2F%2Fblog.twitter.com%2F2010%2F08%2Fpushing-our-tweet-button.html';
+		
+		var extensionInfo = null;
+		if(typeof(_extensionInfos[$(this).parents('.extension').attr('id')]) != 'undefined'){
+			extensionInfo = _extensionInfos[$(this).parents('.extension').attr('id')];
+		}
+		
+		if(extensionInfo == null){
+			return;
+		}
+	
+		var text = encodeURIComponent(extensionInfo.name + ' Chrome Extension') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id);
 		var via = 'russenreaktor';
 		 window.open('http://twitter.com/share?_=1299226766058&count=horizontal&text=' + text + '&via=' + via);
-		return false;
+		
+		 return false;
 	});
 	
 	$('.share-buzz').click(function() {
-		window.open('http://www.google.com/buzz/post?url=http://slides.html5rocks.com/');
+		var extensionInfo = null;
+		if(typeof(_extensionInfos[$(this).parents('.extension').attr('id')]) != 'undefined'){
+			extensionInfo = _extensionInfos[$(this).parents('.extension').attr('id')];
+		}
+		
+		if(extensionInfo == null){
+			return;
+		}
+		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + ' Chrome Extension') + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
 		return false;
 	});
-	
 }
-
 
 </script>
 
@@ -124,22 +154,23 @@ function addListeners() {
       </div> 
       <div id="developer_tools" class="wbox-dev-mode"> 
         <div class="developer-mode">
-          <span>EXPORT:</span> 
-		      <ul class="nav">
-		      	<li class=""><a onclick="exportTo('bbcode')">BBCODE</a></li>
-				<li class=""><a onclick="exportTo('html')">HTML</a></li>
-				<li class=""><a onclick="exportTo('text')">TEXT</a></li>
-				<li class=""><a onclick="exportTo('wiki')">Wiki</a></li>
-			 </ul>
-			 
-			 <div id="filter" class="listoptions">
-			 	<h3><span>Select: <strong>All</strong></span></h3>
-				<ul>
-					<li><a onclick="select('all')">All</a></li>
-					<li><a onclick="select('none')">None</a></li>
-					<li><a onclick="select('reverse')">Reverse</a></li>
-				</ul>
-			</div>
+          
+	      <ul class="nav">
+	      	<li class="selected"><a onclick="void(0);">Export:</a></li>
+	      	<li class=""><a onclick="exportTo('bbcode')">BBCODE</a></li>
+			<li class=""><a onclick="exportTo('html')">HTML</a></li>
+			<li class=""><a onclick="exportTo('text')">TEXT</a></li>
+			<li class=""><a onclick="exportTo('wiki')">Wiki</a></li>
+		 </ul>
+		 
+		 <div id="filter" class="listoptions">
+		 	<h3><span>Select: <strong>All</strong></span></h3>
+			<ul>
+				<li><a class="pointer" onclick="select('all')">All</a></li>
+				<li><a class="pointer" onclick="select('none')">None</a></li>
+				<li><a class="pointer" onclick="select('reverse')">Reverse</a></li>
+			</ul>
+		</div>
 	
         </div> 
       </div> 
@@ -161,7 +192,7 @@ function addListeners() {
           </td> 
           <td valign="top"> 
             <div> 
-              <a id="homepageUrl"><span class="extension-name" id="name">EXTENSION NAME</span></a> 
+              <a id="homepageUrl" target="_blank"><span class="extension-name" id="name">EXTENSION NAME</span></a> 
               <span class="extension-name" id="name2">EXTENSION NAME</span> - <span>VERSION</span> 
               <span id="version">x.x.x.x</span> 
               <span id="enabled">(DISABLED)</span> 
@@ -198,5 +229,19 @@ function addListeners() {
       </div> 
     </div> 
   </div> 
+  
+<div id="dialog-modal" title="Export" class="hd">
+	<div>
+	 <ul id="nav2" class="nav">
+      	<li class="bbcode"><a onclick="exportTo('bbcode')">BBCODE</a></li>
+		<li class="html"><a onclick="exportTo('html')">HTML</a></li>
+		<li class="text"><a onclick="exportTo('text')">TEXT</a></li>
+		<li class="wiki"><a onclick="exportTo('wiki')">Wiki</a></li>
+	 </ul>
+	</div>
+	
+	<textarea id="export" style="width:760px;height:500px"></textarea>
+</div>
+
   </body> 
 </html> 

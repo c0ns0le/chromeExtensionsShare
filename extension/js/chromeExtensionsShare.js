@@ -42,41 +42,67 @@ function select(type) {
 }
 
 function exportTo(type) {
-	chrome.management.getAll(function(extensionInfos) {
-		console.log('exporting to:' + type);
+	// chrome.management.getAll(function(extensionInfos) {
+	console.log('exporting to:' + type);
 
-		var selectedExtensions = new Array();
+	var selectedExtensions = new Array();
 
-		for ( var i in extensionInfos) {
-			var extensionInfo = extensionInfos[i];
+	// for ( var i in extensionInfos) {
+	// var extensionInfo = extensionInfos[i];
 
-			if ($('#' + extensionInfo.id).hasClass('selected')) {
-				// selectedExtensions
-				console.log(extensionInfo);
-				selectedExtensions[selectedExtensions.length] = extensionInfo;
-			}
+	for ( var i in _extensionInfos) {
+		var extensionInfo = _extensionInfos[i];
+		if ($('#' + extensionInfo.id).hasClass('selected')) {
+			// selectedExtensions
+			console.log(extensionInfo);
+			selectedExtensions[selectedExtensions.length] = extensionInfo;
 		}
+	}
 
-		console.log(selectedExtensions);
+	console.log(selectedExtensions);
+	if(selectedExtensions == undefined || selectedExtensions.length == 0){
+		alert('Please select some extensions');
+		return;
+	}
+	
+	var code = '';
+	switch (type) {
+	case 'bbcode':
+		code = generateBBCode(selectedExtensions);
+		break;
+	case 'html':
+		code = generateHTML(selectedExtensions);
+		break;
+	case 'text':
+		code = generateText(selectedExtensions);
+		break;
+	case 'wiki':
+		code = generateWiki(selectedExtensions);
+		break;
+	default:
+		break;
+	}
 
-		var code = '';
-		switch (type) {
-		case 'bbcode':
-			code = generateBBCode(selectedExtensions);
-			break;
-		case 'html':
-			code = generateHTML(selectedExtensions);
-			break;
-		case 'text':
-			code = generateText(selectedExtensions);
-			break;
-		default:
-			break;
-		}
+	$('#nav2 li.selected').removeClass('selected');
+	
+	if (code != undefined && code != '') {
+		$('#export').val(code);
+		$('#nav2 li.' + type).addClass('selected');
+		
+		$("#dialog-modal").dialog({
+			modal: true,
+			draggable: false,
+			position: 'center',
+			width: 800,
+			height: 600,
+			closeOnEscape: true
+		});
+		
+		//$('#dialog-modal').dialog('open');
+	}
 
-		console.log(code);
 
-	});
+	// });
 }
 
 function populateExtensions(extensionInfos) {
@@ -108,7 +134,7 @@ function populateExtensions(extensionInfos) {
 			$('#id', data).html(extensionInfo.id);
 
 			var lastIconSize = 0;
-			var lastIconUrl = 'images/extension.png';
+			var lastIconUrl = 'images/extension_unknown.png';
 
 			if (extensionInfo.icons != undefined && extensionInfo.icons.length) {
 				for ( var j in extensionInfo.icons) {
@@ -123,17 +149,14 @@ function populateExtensions(extensionInfos) {
 
 			$('.content').append(data.html());
 
-			/*
-			 * $('.content').append( '<div>' + extensionInfo.isApp + '</div>' + '<div>' +
-			 * extensionInfo.id + '</div>' + '<div>' + extensionInfo.name + '</div>' + '<div>' +
-			 * extensionInfo.description + '</div>');
-			 */
+			_extensionInfos[extensionInfo.id] = extensionInfo;
 
 		}
 	} // for
 
 	return counter;
 }
+
 function generateBBCode(extensionInfos) {
 	var curdate = new Date();
 	var result = '';
@@ -141,7 +164,7 @@ function generateBBCode(extensionInfos) {
 	result = result + '[b]Generated:[/b] ' + curdate.toGMTString() + '\n';
 	result = result + '[b]User Agent:[/b] ' + navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + '[b]Extensions:[/b] [' + extensionInfos.length + ']\n';
+	result = result + '[b]Extensions:[/b] ' + extensionInfos.length + '\n';
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
@@ -153,16 +176,6 @@ function generateBBCode(extensionInfos) {
 		result = result + '\n';
 	}
 
-	/*
-	 * result = result + '[b]Disabled Extensions:[/b] [3]\n'; result = result + '-
-	 * [url=http://www.conduit.com]Conduit Engine[/url] 3.2.5.2\n'; result =
-	 * result + '\n'; result = result + '[b]Total Extensions: 34[/b]\n'; result =
-	 * result + '\n'; result = result + '[b]Installed Themes:[/b] [1]\n'; result =
-	 * result + '- [b][url=http://www.mozilla.org/]Default[/url][/b]\n'; result =
-	 * result + '\n'; result = result + ' [b]Installed Plugins:[/b] (21)\n';
-	 * result = result + ' - Adobe Acrobat\n';
-	 */
-
 	return result;
 }
 
@@ -171,24 +184,16 @@ function generateHTML(extensionInfos) {
 	var result = '';
 	result = result
 			+ '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n';
-	result = result + '<html><head><title>My Config - default</title>\n';
+	result = result + '<html><head><title>My Chrome Extension</title>\n';
 	result = result
 			+ '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n';
-	result = result + '<style type="text/css">\n';
-	result = result
-			+ 'body { background: #FFFFFF; color: #1F007F; font-family:Arial; font-size: 12px;} ul {margin-left: 0; padding-left: 1.25em;} .ExtensionHeader {font-weight: bold; } .ExtensionDisabledHeader  {font-weight: bold; } .ThemeHeader {font-weight: bold; } .PluginHeader {font-weight: bold; }.GeneratedHeader {font-weight: bold; } .UserAgentHeader {font-weight: bold; } .BuildIDHeader {font-weight: bold; }\n';
-	result = result + '</style>\n';
 	result = result + '<base target="_blank">\n';
 	result = result + '</head>\n';
 	result = result + '<body>\n';
-	result = result + '<span class="GeneratedHeader">Generated:</span> '
-			+ curdate.toGMTString() + '<br>\n';
-	result = result + '<span class="UserAgentHeader">User Agent:</span> '
-			+ navigator.userAgent + '<br>\n';
+	result = result + '<b>Generated:</b> ' + curdate.toGMTString() + '<br>\n';
+	result = result + '<b>User Agent:</b> ' + navigator.userAgent + '<br>\n';
 	result = result + '<br>\n';
-
-	result = result + '<span class="ExtensionHeader">Extensions:</span> ['
-			+ extensionInfos.length + ']';
+	result = result + '<b>Extensions:</b> ' + extensionInfos.length + '';
 	result = result + '<ul>';
 
 	for ( var i in extensionInfos) {
@@ -197,26 +202,10 @@ function generateHTML(extensionInfos) {
 		result = result + '<li> <a href="'
 				+ 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + '" target="_blank">' + extensionInfo.name
-				+ '</a> ' + extensionInfo.version + '</li>\n';
-
+				+ '</a> v.' + extensionInfo.version + '</li>\n';
 	}
 
-	result = result + '</ul><br>\n';
-
-	/*
-	 * result = result + '<span class="ExtensionDisabledHeader">Disabled
-	 * Extensions:</span> [3]\n'; result = result + '<ul>\n'; result = result + '<li>
-	 * <a href="http://www.conduit.com" target="_blank">Conduit Engine</a>
-	 * 3.2.5.2</li>\n'; result = result + '...\n'; result = result + '</ul><br>\n';
-	 * result = result + '<span class="ExtensionHeader">Total Extensions: 34</span><br>\n';
-	 * result = result + '<br>\n'; result = result + '<span
-	 * class="ThemeHeader">Installed Themes:</span> [1]<ul><li> <b><a
-	 * href="http://www.mozilla.org/" target="_blank">Default</a></b></li>\n';
-	 * result = result + '</ul><br>\n'; result = result + '<span
-	 * class="PluginHeader">Installed Plugins:</span> (21)<ul><li> Adobe
-	 * Acrobat</li>\n'; result = result + '<li> DivX Web Player</li>\n';
-	 * result = result + '...\n'; result = result + '</ul><br>\n';
-	 */
+	result = result + '</ul>\n';
 	result = result + '</body></html>\n';
 	return result;
 
@@ -228,7 +217,7 @@ function generateText(extensionInfos) {
 	result = result + 'Generated: ' + curdate.toGMTString() + '\n';
 	result = result + 'User Agent: ' + navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + 'Enabled Extensions: [' + extensionInfos.length + ']\n';
+	result = result + 'Extensions: ' + extensionInfos.length + '\n';
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
@@ -238,16 +227,25 @@ function generateText(extensionInfos) {
 				+ 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + '\n';
 	}
-	/*
-	 * result = result + '\n'; result = result + 'Disabled Extensions: [3]\n';
-	 * result = result + '- Conduit Engine 3.2.5.2: http:// www.conduit.com\n';
-	 * result = result + '...\n'; result = result + '\n'; result = result +
-	 * 'Total Extensions: 34\n'; result = result + '\n'; result = result +
-	 * 'Installed Themes: [1]\n'; result = result + '- Default: http://
-	 * www.mozilla.org/\n'; result = result + '\n'; result = result + 'Installed
-	 * Plugins: (21)\n'; result = result + '- Adobe Acrobat\n'; result = result +
-	 * '...\n';
-	 */
-	return result;
 
+	return result;
+}
+
+function generateWiki(extensionInfos) {
+	var curdate = new Date();
+	var result = '';
+	result = result + "'''Generated:''' " + curdate.toGMTString() + '\n\n';
+	result = result + "'''User Agent:''' " + navigator.userAgent + '\n';
+	result = result + '\n';
+	result = result + "'''Extensions:''' " + extensionInfos.length + "\n";
+
+	for ( var i in extensionInfos) {
+		var extensionInfo = extensionInfos[i];
+
+		result = result + '* [' + 'https://chrome.google.com/webstore/detail/'
+				+ extensionInfo.id + ' ' + extensionInfo.name + '] v'
+				+ extensionInfo.version + '' + '\n';
+	}
+
+	return result;
 }

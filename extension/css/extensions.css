@@ -128,6 +128,8 @@ body.showDevMode .showInDevMode {
 }
 
 .developer-mode {
+	height: 20px;
+	position: relative;
 	background: #f4f6fc;
 	border-bottom: 1px solid #edeff5;
 	/*
@@ -137,7 +139,7 @@ body.showDevMode .showInDevMode {
 	padding-left: 10px;
 	padding-top: 0.8em;
 	padding-right: 10px;
-	
+
 	/*
 	width: 100%;
 	*/
