@@ -5,6 +5,7 @@
 	"icons": {
 		"256": "images/icon256.png",
 		"128": "images/icon128.png",
+		"64": "images/icon64.png",	
 		"24": "images/icon24.png",
 		"19": "images/icon19.png"
 	},
@@ -13,6 +14,6 @@
 		"tabs", "management"
 	],
 	"browser_action": {
-    	"default_icon": "images/icon16.png" // required
+    	"default_icon": "images/icon19.png" // required
   	}
 }
