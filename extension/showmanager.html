@@ -111,6 +111,23 @@ function addListeners() {
 		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + ' Chrome Extension') + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
 		return false;
 	});
+	
+	$('.share-gmail').click(function() {
+		var extensionInfo = null;
+		if(typeof(_extensionInfos[$(this).parents('.extension').attr('id')]) != 'undefined'){
+			extensionInfo = _extensionInfos[$(this).parents('.extension').attr('id')];
+		}
+		
+		if(extensionInfo == null){
+			return;
+		}
+
+		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + _subject
+				+ '&body=' + encodeURIComponent(getDescriptionText(extensionInfo, true)));
+
+		return false;
+	});
+	
 }
 
 </script>
@@ -119,7 +136,7 @@ function addListeners() {
 <body> 
   <div id="body-container" style="visibility:visible;"> 
  
-    <div id="header"><h1>Extensions</h1></div> 
+    <div id="header"><h1>Share Extensions</h1></div> 
  
     <div id="extensionTemplate"> 
  
@@ -147,9 +164,9 @@ function addListeners() {
           
 	      <ul class="nav">
 	      	<li class="selected"><a onclick="void(0);">Export:</a></li>
-	      	<li class=""><a onclick="exportTo('bbcode')">BBCODE</a></li>
+	      	<li class=""><a onclick="exportTo('bbcode')">BBCode</a></li>
 			<li class=""><a onclick="exportTo('html')">HTML</a></li>
-			<li class=""><a onclick="exportTo('text')">TEXT</a></li>
+			<li class=""><a onclick="exportTo('text')">Text</a></li>
 			<li class=""><a onclick="exportTo('wiki')">Wiki</a></li>
 		 </ul>
 		 
@@ -202,9 +219,12 @@ function addListeners() {
             </div> 
             <div class="extension-actions-div"> 
               <span class="extension-actions"> 
-                <span class="action share-twitter">TWITTER</span> 
+                <span class="action share-twitter">Twitter</span> 
                 <span >-</span> 
-                <span class="action share-buzz">BUZZ</span> 
+                <span class="action share-buzz">Buzz</span> 
+                <span >-</span> 
+                <span class="action share-gmail">GMail</span> 
+                
                 </span>
             </div> 
           </td> 
@@ -229,9 +249,16 @@ function addListeners() {
 		<li class="wiki"><a onclick="exportTo('wiki')">Wiki</a></li>
 	 </ul>
 	 
-	 <div class="right"><input type="checkbox" id="description">
+	 
+	 <div id="nav2" class="nav"><input type="checkbox" id="description">
 	 <label for="description">include description</label>
 	 </div>
+	 
+	 <div class="right"><ul class="nav">
+	    <li class=""><a onclick="sendTo('gmail')">send via gmail</a></li>
+	 </ul>
+	 </div>
+	 
 	</div>
 	
 	<textarea id="export" style="width:760px;height:500px"></textarea>

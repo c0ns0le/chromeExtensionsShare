@@ -2,8 +2,9 @@
  * The background page is asking us to find userpics on the page.
  */
 
-
 var _lastExport = 'text';
+var _subject = 'Here are my selected Chrome Extensions';
+
 
 function selectAll(select) {
 	if (select) {
@@ -36,14 +37,21 @@ function select(type) {
 	return false;
 }
 
-function reExport(){
+function reExport() {
 	exportTo(_lastExport);
+}
+
+function sendTo(destination) {
+
+	window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + _subject
+			+ '&body=' + encodeURIComponent($('#export').val()));
+
 }
 
 function exportTo(type) {
 	// chrome.management.getAll(function(extensionInfos) {
 	console.log('exporting to:' + type);
-	
+
 	var descriptionOn = $('#description:checked').val();
 	_lastExport = type;
 	var selectedExtensions = new Array();
@@ -175,7 +183,8 @@ function generateBBCode(extensionInfos, descriptionOn) {
 				+ extensionInfo.id + ']' + extensionInfo.name + '[/url] ' + 'v'
 				+ extensionInfo.version + '\n';
 
-		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+		if (descriptionOn && extensionInfo.description != undefined
+				&& extensionInfo.description != '') {
 			result = result + ' [i]' + extensionInfo.description + '[/i]\n';
 		}
 
@@ -210,7 +219,8 @@ function generateHTML(extensionInfos, descriptionOn) {
 				+ extensionInfo.id + '" target="_blank">' + extensionInfo.name
 				+ '</a> v' + extensionInfo.version;
 
-		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+		if (descriptionOn && extensionInfo.description != undefined
+				&& extensionInfo.description != '') {
 			result = result + '<br><i>' + extensionInfo.description + '</i>\n';
 		}
 
@@ -234,15 +244,29 @@ function generateText(extensionInfos, descriptionOn) {
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
 
+		/*
 		result = result + '- ' + extensionInfo.name + ' v'
 				+ extensionInfo.version + ': '
 				+ 'https://chrome.google.com/webstore/detail/'
 				+ extensionInfo.id + '\n';
 
-		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+		if (descriptionOn && extensionInfo.description != undefined
+				&& extensionInfo.description != '') {
 			result = result + '   ' + extensionInfo.description + '\n';
-		}
+		}*/
+		result = result + getDescriptionText(extensionInfo, descriptionOn);
+		
 	}
+
+	return result;
+}
+
+function getDescriptionText(extensionInfo, descriptionOn) {
+	var result = '- ' + extensionInfo.name + ' v' + extensionInfo.version
+			+ ': ' + 'https://chrome.google.com/webstore/detail/'
+			+ extensionInfo.id + '\n';
+
+	result = result + '   ' + extensionInfo.description + '\n';
 
 	return result;
 }
@@ -262,7 +286,8 @@ function generateWiki(extensionInfos, descriptionOn) {
 				+ extensionInfo.id + ' ' + extensionInfo.name + '] v'
 				+ extensionInfo.version + '' + '\n';
 
-		if (descriptionOn && extensionInfo.description != undefined && extensionInfo.description != '') {
+		if (descriptionOn && extensionInfo.description != undefined
+				&& extensionInfo.description != '') {
 			result = result + ":''" + extensionInfo.description + "''\n";
 		}
 	}
