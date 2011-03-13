@@ -191,7 +191,7 @@ div.extension.selected .stars {
 	border-right: 1px solid #fff;
 	display: block;
 	padding: 4px 8px 4px 10px;
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 }
 
 .nav li:hover,.nav li:hover:first-child,.nav li:hover:last-child {

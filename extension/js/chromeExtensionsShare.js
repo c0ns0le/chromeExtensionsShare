@@ -1,10 +1,5 @@
-/*
- * The background page is asking us to find userpics on the page.
- */
 
 var _lastExport = 'text';
-var _subject = 'Here are my selected Chrome Extensions';
-
 
 function selectAll(select) {
 	if (select) {
@@ -15,6 +10,9 @@ function selectAll(select) {
 }
 
 function select(type) {
+	
+	_gaq.push(['_trackPageview','/extensions/select/' + type + '/']);
+	
 	switch (type) {
 	case 'all':
 		$('.extension').addClass('selected');
@@ -42,9 +40,9 @@ function reExport() {
 }
 
 function sendTo(destination) {
-
-	window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + _subject
-			+ '&body=' + encodeURIComponent($('#export').val()));
+	_gaq.push(['_trackPageview','/extensions/export/gmail/']);
+	window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su='
+			+ _subject + '&body=' + encodeURIComponent($('#export').val()));
 
 }
 
@@ -70,12 +68,15 @@ function exportTo(type) {
 
 	console.log(selectedExtensions);
 	if (selectedExtensions == undefined || selectedExtensions.length == 0) {
-		alert('Please select some extensions');
+		//alert('Please select some extensions');
+		alert(_i18n('alert_no_extensions_selected'));
 		return;
 	}
 
 	var code = '';
 
+	_gaq.push(['_trackPageview','/extensions/export/' + type + '/' + selectedExtensions.length + '/']);
+	
 	switch (type) {
 	case 'bbcode':
 		code = generateBBCode(selectedExtensions, descriptionOn);
@@ -122,7 +123,7 @@ function populateExtensions(extensionInfos) {
 
 		if (extensionInfo.enabled && !extensionInfo.isApp) {
 			counter++;
-			console.log(extensionInfo);
+			// console.log(extensionInfo);
 
 			var data = template;
 			$('.extension', data).attr('id', extensionInfo.id);
@@ -170,10 +171,13 @@ function generateBBCode(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
 
-	result = result + '[b]Generated:[/b] ' + curdate.toGMTString() + '\n';
-	result = result + '[b]User Agent:[/b] ' + navigator.userAgent + '\n';
+	result = result + '[b]' + _i18n('label_export_generated') + '[/b] '
+			+ curdate.toGMTString() + '\n';
+	result = result + '[b]' + _i18n('label_export_user_agent') + '[/b] '
+			+ navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + '[b]Extensions:[/b] ' + extensionInfos.length + '\n';
+	result = result + '[b]' + _i18n('label_export_extensions') + '[/b] '
+			+ extensionInfos.length + '\n';
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
@@ -190,6 +194,8 @@ function generateBBCode(extensionInfos, descriptionOn) {
 
 		result = result + '\n';
 	}
+	
+	result = result + _i18n('label_exported_via_bbcode') + '\n';
 
 	return result;
 }
@@ -199,16 +205,18 @@ function generateHTML(extensionInfos, descriptionOn) {
 	var result = '';
 	result = result
 			+ '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n';
-	result = result + '<html><head><title>My Chrome Extension</title>\n';
-	result = result
-			+ '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n';
+	result = result + '<html><head><title>' + _i18n('title_export_html') + '</title>\n';
+	result = result + '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n';
 	result = result + '<base target="_blank">\n';
 	result = result + '</head>\n';
 	result = result + '<body>\n';
-	result = result + '<b>Generated:</b> ' + curdate.toGMTString() + '<br>\n';
-	result = result + '<b>User Agent:</b> ' + navigator.userAgent + '<br>\n';
+	result = result + '<b>' + _i18n('label_export_generated') + '</b> '
+			+ curdate.toGMTString() + '<br>\n';
+	result = result + '<b>' + _i18n('label_export_user_agent') + '</b> '
+			+ navigator.userAgent + '<br>\n';
 	result = result + '<br>\n';
-	result = result + '<b>Extensions:</b> ' + extensionInfos.length + '';
+	result = result + '<b>' + _i18n('label_export_extensions') + '</b> '
+			+ extensionInfos.length + '';
 	result = result + '<ul>';
 
 	for ( var i in extensionInfos) {
@@ -228,6 +236,10 @@ function generateHTML(extensionInfos, descriptionOn) {
 	}
 
 	result = result + '</ul>\n';
+	
+	result = result + '<br><br>' + _i18n('label_exported_via_html') + '\n';
+
+	
 	result = result + '</body></html>\n';
 	return result;
 
@@ -236,27 +248,31 @@ function generateHTML(extensionInfos, descriptionOn) {
 function generateText(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
-	result = result + 'Generated: ' + curdate.toGMTString() + '\n';
-	result = result + 'User Agent: ' + navigator.userAgent + '\n';
+	result = result + _i18n('label_export_generated') + ' '
+			+ curdate.toGMTString() + '\n';
+	result = result + _i18n('label_export_user_agent') + ' ' + navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + 'Extensions: ' + extensionInfos.length + '\n';
+	result = result + + _i18n('label_export_extensions') + ' ' + extensionInfos.length + '\n';
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
 
 		/*
-		result = result + '- ' + extensionInfo.name + ' v'
-				+ extensionInfo.version + ': '
-				+ 'https://chrome.google.com/webstore/detail/'
-				+ extensionInfo.id + '\n';
-
-		if (descriptionOn && extensionInfo.description != undefined
-				&& extensionInfo.description != '') {
-			result = result + '   ' + extensionInfo.description + '\n';
-		}*/
+		 * result = result + '- ' + extensionInfo.name + ' v' +
+		 * extensionInfo.version + ': ' +
+		 * 'https://chrome.google.com/webstore/detail/' + extensionInfo.id +
+		 * '\n';
+		 * 
+		 * if (descriptionOn && extensionInfo.description != undefined &&
+		 * extensionInfo.description != '') { result = result + ' ' +
+		 * extensionInfo.description + '\n'; }
+		 */
 		result = result + getDescriptionText(extensionInfo, descriptionOn);
-		
+
 	}
+	
+	result = result + '\n\n' + _i18n('label_exported_via_text') + '\n';
+
 
 	return result;
 }
@@ -274,10 +290,13 @@ function getDescriptionText(extensionInfo, descriptionOn) {
 function generateWiki(extensionInfos, descriptionOn) {
 	var curdate = new Date();
 	var result = '';
-	result = result + "'''Generated:''' " + curdate.toGMTString() + '\n\n';
-	result = result + "'''User Agent:''' " + navigator.userAgent + '\n';
+	result = result + "'''" + _i18n('label_export_generated') + "''' "
+			+ curdate.toGMTString() + '\n\n';
+	result = result + "'''" + _i18n('label_export_user_agent') + "''' "
+			+ navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + "'''Extensions:''' " + extensionInfos.length + "\n";
+	result = result + "'''" + _i18n('label_export_extensions') + "''' "
+			+ extensionInfos.length + "\n";
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
@@ -291,6 +310,9 @@ function generateWiki(extensionInfos, descriptionOn) {
 			result = result + ":''" + extensionInfo.description + "''\n";
 		}
 	}
+	
+	result = result + '\n\n' + _i18n('label_exported_via_wiki') + '\n';
+
 
 	return result;
 }

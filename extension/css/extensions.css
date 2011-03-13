@@ -126,7 +126,8 @@ body.showDevMode .showInDevMode {
 }
 
 .developer-mode {
-	height: 20px; position : relative;
+	height: 20px;
+	position: relative;
 	background: #f4f6fc;
 	border-bottom: 1px solid #edeff5;
 	/*
@@ -174,7 +175,7 @@ html[dir=rtl] .developer-mode {
 	font-size: 1.2em;
 }
 
-#try-gallery {
+#try_gallery {
 	margin-top: 1em;
 	font-weight: normal;
 }

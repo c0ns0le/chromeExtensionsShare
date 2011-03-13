@@ -1,0 +1,80 @@
+{
+	"ext_name": {
+		"message": "Chrome Extensions Share"
+	},
+	"ext_description": {
+		"message": "Export Chrome extensions you like as BBCode, HTML, Wiki or Text list for your Blog. Or share the Extensions via Twitter, Google Buzz™ and Google Mail™"
+	},
+	"default_title": {
+		"message": "Extensions"
+	},
+	"i18n_header": {
+		"message": "Share Extensions"
+	},
+	"section_header_title": {
+		"message": "Extensions"
+	},
+	"label_export": {
+		"message": "Export:"
+	},
+	"label_select": {
+		"message": "Select: <strong>All</strong>"
+	},
+	"label_select_all": {
+		"message": "All"
+	},
+	"label_select_none": {
+		"message": "None"
+	},
+	"label_select_revert": {
+		"message": "Reverse"
+	},
+	"label_no_extensions": {
+		"message": "No extensions are installed"
+	},
+	"try_gallery": {
+		"message": "Get more extensions"
+	},
+	"label_version": {
+		"message": "v"
+	},
+	"enabled": {
+		"message": "(disabled)"
+	},
+	"label_description": {
+		"message": "include description"
+	},
+	"label_send_via_gmail": {
+		"message": "Send via GMail"
+	},
+	"label_export_generated": {
+		"message": "Generated:"
+	},
+	"label_export_user_agent": {
+		"message": "User Agent:"
+	},
+	"label_export_extensions": {
+		"message": "Extensions:"
+	},
+	"title_export_html": {
+		"message": "My Google Chrome™ Extensions"
+	},
+	"label_exported_via_bbcode": {
+		"message": "Exported with [url=https://chrome.google.com/webstore/detail/@@extension_id]Chrome Extensions Share[/url]"
+	},
+	"label_exported_via_html": {
+		"message": "Exported with <a href=\"https://chrome.google.com/webstore/detail/@@extension_id\" target=\"_blank\">Chrome Extensions Share</a>"
+	},
+	"label_exported_via_wiki": {
+		"message": "Exported with [https://chrome.google.com/webstore/detail/@@extension_id Chrome Extensions Share]"
+	},
+	"label_exported_via_text": {
+		"message": "Exported with Chrome Extensions Share - https://chrome.google.com/webstore/detail/@@extension_id"
+	},
+	"title_export_mail": {
+		"message": "Here are my selected Chrome Extensions"
+	},
+	"alert_no_extensions_selected": {
+		"message": "Please select some extensions"
+	}
+}
