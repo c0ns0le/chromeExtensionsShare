@@ -61,12 +61,12 @@ function exportTo(type) {
 		var extensionInfo = _extensionInfos[i];
 		if ($('#' + extensionInfo.id).hasClass('selected')) {
 			// selectedExtensions
-			console.log(extensionInfo);
+			//console.log(extensionInfo);
 			selectedExtensions[selectedExtensions.length] = extensionInfo;
 		}
 	}
 
-	console.log(selectedExtensions);
+	//console.log(selectedExtensions);
 	if (selectedExtensions == undefined || selectedExtensions.length == 0) {
 		//alert('Please select some extensions');
 		alert(_i18n('alert_no_extensions_selected'));
@@ -252,7 +252,7 @@ function generateText(extensionInfos, descriptionOn) {
 			+ curdate.toGMTString() + '\n';
 	result = result + _i18n('label_export_user_agent') + ' ' + navigator.userAgent + '\n';
 	result = result + '\n';
-	result = result + + _i18n('label_export_extensions') + ' ' + extensionInfos.length + '\n';
+	result = result + _i18n('label_export_extensions') + ' ' + extensionInfos.length + '\n';
 
 	for ( var i in extensionInfos) {
 		var extensionInfo = extensionInfos[i];
@@ -282,8 +282,9 @@ function getDescriptionText(extensionInfo, descriptionOn) {
 			+ ': ' + 'https://chrome.google.com/webstore/detail/'
 			+ extensionInfo.id + '\n';
 
-	result = result + '   ' + extensionInfo.description + '\n';
-
+	if(descriptionOn){
+		result = result + '   ' + extensionInfo.description + '\n';
+	}
 	return result;
 }
 

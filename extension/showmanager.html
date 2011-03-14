@@ -61,7 +61,7 @@ function addListeners() {
 	
 	$('#description').click(function(){
 		
-		_gaq.push(['_trackPageview','/option/description/' + $('#description').val()]);
+		_gaq.push(['_trackPageview','/option/description/' + _lastExport + '/' + $('#description').val()]);
 		
 		reExport();	
 	});

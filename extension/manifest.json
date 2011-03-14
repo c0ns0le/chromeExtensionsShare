@@ -15,6 +15,6 @@
 		"tabs", "management"
 	],
 	"browser_action": {
-    	"default_icon": "images/icon19.png" // required
+    	"default_icon": "images/icon19.png"
   	}
 }
