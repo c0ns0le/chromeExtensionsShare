@@ -14,6 +14,15 @@
 	"section_header_title": {
 		"message": "Extensions"
 	},
+	"section_header_title_enabled_extensions": {
+		"message": "Enabled Extensions"
+	},
+	"section_header_title_disabled_extensions": {
+		"message": "Disabled Extensions"
+	},
+	"section_header_title_apps": {
+		"message": "Apps"
+	},
 	"label_export": {
 		"message": "Export:"
 	},
@@ -56,6 +65,12 @@
 	"label_export_extensions": {
 		"message": "Extensions:"
 	},
+	"label_export_extensions_disabled": {
+		"message": "Disabled Extensions:"
+	},
+	"label_export_apps": {
+		"message": "Apps:"
+	},
 	"title_export_html": {
 		"message": "My Google Chrome™ Extensions"
 	},
@@ -74,7 +89,16 @@
 	"title_export_mail": {
 		"message": "Here are my selected Chrome Extensions"
 	},
+	"title_export_mail_app": {
+		"message": "Here are my selected Chrome App"
+	},
 	"alert_no_extensions_selected": {
 		"message": "Please select some extensions"
+	},
+	"action_enable": {
+		"message": "Enable"
+	},
+	"action_disable": {
+		"message": "Disable"
 	}
 }
