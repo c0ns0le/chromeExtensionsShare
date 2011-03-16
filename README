@@ -1,10 +1,6 @@
-/*
- * http://chrome.google.com/extensions/permalink?id=klhlhobihlonchbicbgkjdapbbolmmaj
- * https://chrome.google.com/webstore/detail/gighmmpiobklfepjocnamgkkbiglidom		 
- * https://chrome.google.com/webstore/img/klhlhobihlonchbicbgkjdapbbolmmaj/2323432/logo128	
- *	 style="background-image:url(data:image/png;base64,
- * post to buzz: http://www.google.com/buzz/post?url=http://slides.html5rocks.com/
- * twitter: http://twitter.com/share?_=1299226766058&count=horizontal&text=Pushing%20Our%20(Tweet)%20Button&url=http%3A%2F%2Fblog.twitter.com%2F2010%2F08%2Fpushing-our-tweet-button.html&via=twitter
- * url shortener: https://www.googleapis.com/urlshortener/v1/url?shortUrl=http://goo.gl/fbsS&key=AIzaSyBB6ue8uBJBRtgQSFDrdwoTfWNEBmgAvuo		 
- * pastebin:
- */
+Extensions Share for Google Chrome™
+
+Export Chrome extensions you like as BBCode, HTML, Wiki or Text list for your Blog. Or share the Extensions via Twitter, Google Buzz™ and Google Mail™
+
+Use the bug tracker for bug reporting: http://code.google.com/p/chrome-extensions-share/issues/entry
+Add your translation here: http://www.getlocalization.com/ChromeExtensionsShare
