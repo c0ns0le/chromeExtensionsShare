@@ -7,12 +7,17 @@
 <link rel="stylesheet" href="css/extensions.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/content.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/chrome/jquery-ui-1.8.10.custom.css" type="text/css" media="all" />
+<link rel="stylesheet" href="lib/tiptip/tipTip.css" type="text/css" media="all" />
+
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEMDI5OEI1MDkyMzhFMDExODc3QUVENDc0RDk1RjU1QyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozQjIzQUMxODQ5MEMxMUUwQTUxMDlCQTExMTc2QjBBNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozQjIzQUMxNzQ5MEMxMUUwQTUxMDlCQTExMTc2QjBBNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3MiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNkREQTFERDA0NDlFMDExOEEyRkMyQzZDQzUzNjQ1QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEMDI5OEI1MDkyMzhFMDExODc3QUVENDc0RDk1RjU1QyIvPiA8L3JkZjpEZXNjcmlwdGlv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">
 <script src="js/analytics.js"></script>
 <script src="js/chromeExtensionsShare.min.js"></script>
 <script type="text/javascript" src="lib/i18n.js"></script>
 <script type="text/javascript" src="lib/3rdparty/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="lib/3rdparty/jquery-ui-1.8.10.custom.min.js"></script>
+<script type="text/javascript" src="lib/tiptip/jquery.tipTip.minified.js"></script>
+
+
 
 <script type="text/javascript">
 var extensionsShare = new ExtensionsShare();
@@ -51,11 +56,17 @@ function doI18n(){
 	$('.i18n').each(function(){
 		$(this).html(_i18n($(this).attr('id')));
 	});
+	
+	$('.i18nt').each(function(){
+		$(this).attr('title',_i18n($(this).attr('id')));
+	});
 
 }
 
 
 function addListeners() {
+	
+	$(".action").tipTip({maxWidth: "auto", edgeOffset: 10, fadeIn: 0, fadeOut: 0});
 	
 	$('#description').click(function(){
 		
@@ -96,7 +107,7 @@ function addListeners() {
 		$(this).parents('.extension').removeClass('selected');
 	});
 
-	$('.share-twitter').click(function() {
+	$('span#share_twitter').click(function() {
 
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
 
@@ -117,7 +128,7 @@ function addListeners() {
 		 return false;
 	});
 	
-	$('.share-buzz').click(function() {
+	$('span#share_buzz').click(function() {
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
 
 		if(extensionInfo == null){
@@ -134,7 +145,7 @@ function addListeners() {
 		return false;
 	});
 	
-	$('.share-gmail').click(function() {
+	$('span#share_gmail').click(function() {
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
 		
 		if(extensionInfo == null){
@@ -147,23 +158,46 @@ function addListeners() {
 		}
 			
 		_gaq.push(['_trackPageview','/extensions/share/mail/' + extensionInfo.id + '/' + extensionInfo.name]);
-		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + subject
+		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + encodeURIComponent(subject)
 				+ '&body=' + encodeURIComponent(getDescriptionText(extensionInfo, true)));
 
 		return false;
 	});
 
-	$('.action_enable').click(function() {
+	$('span#share_glist').click(function() {
+		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
+		
+		if(extensionInfo == null){
+			return;
+		}
+			
+		var subject = _i18n('title_export_mail');
+		if (extensionInfo.isApp){
+			subject = _i18n('title_export_mail_app');
+		}
+			
+		_gaq.push(['_trackPageview','/extensions/share/glist/' + extensionInfo.id + '/' + extensionInfo.name]);
+		
+		window.open('https://www.google.com/bookmarks/api/bookmarklet?output=popup'
+			+ '&srcUrl=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id)
+			+ '&snippet=' + encodeURIComponent(extensionInfo.description)
+			+ '&title=' + encodeURIComponent(extensionInfo.name));
+		
+		return false;
+	});
+
+
+	$('span#action_enable').click(function() {
 		$(this).hide();
 		
-		$('.action_disable', $(this).parents('.extension')).show();
+		$('#action_enable', $(this).parents('.extension')).show();
 		return false;
 	});
 	
-	$('.action_disable').click(function() {
+	$('span#action_disable').click(function() {
 		$(this).hide();
 		
-		$('.action_enable', $(this).parents('.extension')).show();
+		$('#action_disable', $(this).parents('.extension')).show();
 		return false;
 	});
 	
@@ -262,12 +296,14 @@ function addListeners() {
                <span id="action_enable" class="action i18n hd">Enable</span> 
                <span id="action_disable" class="action i18n hd">Disable</span> 
                <span class="hd">|</span> 
-               <span class="action share-twitter">Twitter</span> 
+               <span id="share_twitter" class="action i18nt" title="...">Twitter</span> 
                <span >-</span> 
-               <span class="action share-buzz">Buzz</span> 
+               <span id="share_buzz" class="action i18nt" title="...">Buzz</span> 
                <span >-</span> 
-               <span class="action share-gmail">GMail</span> 
-               
+               <span id="share_gmail" class="action i18nt" title="...">GMail</span> 
+               <span >-</span> 
+               <span id="share_glist" class="action i18nt" title="...">Add to list</span> 
+
                </span>
            </div> 
          </td> 
@@ -304,6 +340,7 @@ function addListeners() {
 		
 		<textarea id="export" style="width:760px;height:500px"></textarea>
 	</div>
+
 
   </body> 
 </html> 

@@ -100,5 +100,17 @@
 	},
 	"action_disable": {
 		"message": "Disable"
+	},
+	"share_twitter": {
+		"message": "Share via Twitter"
+	},
+	"share_buzz": {
+		"message": "Share via Google Buzz™"
+	},
+	"share_gmail": {
+		"message": "Send with Google Mail™"
+	},
+	"share_glist": {
+		"message": "Add to Google Bookmarks™ lists"
 	}
 }
