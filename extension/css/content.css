@@ -21,7 +21,7 @@ div.extension.selected .stars {
 .pointer {
 	cursor: pointer;
 }
-	
+
 .action {
 	cursor: pointer;
 	color: blue;
@@ -41,7 +41,7 @@ div.extension.selected .stars {
 }
 
 /* ### selector #### */
-#filter, #sort, .right {
+#filter,#sort,.right {
 	float: right;
 	position: relative;
 }
@@ -85,8 +85,7 @@ div.extension.selected .stars {
 }
 
 .listoptions h3 span {
-	background: url('../images/bg_filter.png') right center
-		no-repeat;
+	background: url('../images/bg_filter.png') right center no-repeat;
 	padding-right: 12px;
 }
 
@@ -174,7 +173,7 @@ div.extension.selected .stars {
 
 .nav li {
 	float: left;
-	font-size: .9em!important;
+	font-size: .9em !important;
 	background: #f3f3f3;
 	background-image: -moz-linear-gradient(top, #f9f9f9, #e3e3e3);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f9f9f9),
@@ -270,7 +269,33 @@ div.extension.selected .stars {
 	padding: 2em 1em 1em 1em;
 	display: block;
 }
-.hd {
+
+.hd, .template {
 	display: none;
 }
 
+#splitter .section-header-title{
+	font-size: 120%!important;
+}
+
+
+.Wo {
+	background: url('../images/plus.png') no-repeat -15px -53px;
+}
+.Wo:hover {
+	background: url('../images/plus.png') no-repeat -28px -53px;
+}
+
+.Wi {
+	background: url('../images/plus.png') no-repeat -15px -40px;
+}
+.Wi:hover {
+	background: url('../images/plus.png') no-repeat -28px -40px;
+}
+
+.Wp {
+	width: 13px;
+	cursor: pointer;
+	margin: 0 0 -1px 2px;
+	height: 12px;
+}

@@ -17,8 +17,6 @@
 <script type="text/javascript" src="lib/3rdparty/jquery-ui-1.8.10.custom.min.js"></script>
 <script type="text/javascript" src="lib/tiptip/jquery.tipTip.minified.js"></script>
 
-
-
 <script type="text/javascript">
 var extensionsShare = new ExtensionsShare();
 
@@ -48,161 +46,6 @@ $(document).ready(function() {
 			
 		});
 });
-
-function doI18n(){
-	 
-	$('[nodeName=title]').html(_i18n('default_title'));
-	
-	$('.i18n').each(function(){
-		$(this).html(_i18n($(this).attr('id')));
-	});
-	
-	$('.i18nt').each(function(){
-		$(this).attr('title',_i18n($(this).attr('id')));
-	});
-
-}
-
-
-function addListeners() {
-	
-	$(".action").tipTip({maxWidth: "auto", edgeOffset: 10, fadeIn: 0, fadeOut: 0});
-	
-	$('#description').click(function(){
-		
-		_gaq.push(['_trackPageview','/option/description/' + extensionsShare.getLastExportType() + '/' + $('#description').val()]);
-		
-		extensionsShare.reExport();	
-	});
-	
-	
-	/*
-	 * close dialog on widget overlay click
-	 */
-	 $('.ui-widget-overlay').live("click", function() {
-         $("#dialog-modal").dialog("close");
-      });  
-	
-	
-	$('.extension').hover(function() {
-		$('.extension-actions',this).show();	
-	}, function() {
-		$('.extension-actions',this).hide();	
-	}).click(function() {
-		
-		if($(this).hasClass('selected')){
-			$(this).removeClass('selected');
-		}else{
-			$(this).addClass('selected');
-		}
-		
-	});
-	
-	$('.stars').toggle(function() {
-		$(this).addClass('selected');
-		$(this).parents('.extension').addClass('selected');
-		
-	}, function() {
-		$(this).removeClass('selected');
-		$(this).parents('.extension').removeClass('selected');
-	});
-
-	$('span#share_twitter').click(function() {
-
-		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-
-		if(extensionInfo == null){
-			return;
-		}
-		var subject = ' Chrome Extension';
-		if (extensionInfo.isApp){
-			subject = ' Chrome App';
-		}
-
-		_gaq.push(['_trackPageview','/extensions/share/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
-	
-		var text = encodeURIComponent(extensionInfo.name + subject) + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id);
-		var via = '';
-		 window.open('http://twitter.com/share?_=1299226766058&count=horizontal&text=' + text + '&via=' + via);
-		
-		 return false;
-	});
-	
-	$('span#share_buzz').click(function() {
-		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-
-		if(extensionInfo == null){
-			return;
-		}
-		
-		var subject = ' Chrome Extension';
-		if (extensionInfo.isApp){
-			subject = ' Chrome App';
-		}
-
-		_gaq.push(['_trackPageview','/extensions/buzz/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
-		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + subject) + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
-		return false;
-	});
-	
-	$('span#share_gmail').click(function() {
-		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-		
-		if(extensionInfo == null){
-			return;
-		}
-			
-		var subject = _i18n('title_export_mail');
-		if (extensionInfo.isApp){
-			subject = _i18n('title_export_mail_app');
-		}
-			
-		_gaq.push(['_trackPageview','/extensions/share/mail/' + extensionInfo.id + '/' + extensionInfo.name]);
-		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + encodeURIComponent(subject)
-				+ '&body=' + encodeURIComponent(getDescriptionText(extensionInfo, true)));
-
-		return false;
-	});
-
-	$('span#share_glist').click(function() {
-		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-		
-		if(extensionInfo == null){
-			return;
-		}
-			
-		var subject = _i18n('title_export_mail');
-		if (extensionInfo.isApp){
-			subject = _i18n('title_export_mail_app');
-		}
-			
-		_gaq.push(['_trackPageview','/extensions/share/glist/' + extensionInfo.id + '/' + extensionInfo.name]);
-		
-		window.open('https://www.google.com/bookmarks/api/bookmarklet?output=popup'
-			+ '&srcUrl=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id)
-			+ '&snippet=' + encodeURIComponent(extensionInfo.description)
-			+ '&title=' + encodeURIComponent(extensionInfo.name));
-		
-		return false;
-	});
-
-
-	$('span#action_enable').click(function() {
-		$(this).hide();
-		
-		$('#action_enable', $(this).parents('.extension')).show();
-		return false;
-	});
-	
-	$('span#action_disable').click(function() {
-		$(this).hide();
-		
-		$('#action_disable', $(this).parents('.extension')).show();
-		return false;
-	});
-	
-	
-}
 
 </script>
 
@@ -255,15 +98,33 @@ function addListeners() {
 
        </div> 
      </div> 
-     </div> 
+     </div>
 
-     <div class="content"> 
+<div id="splitter-template" class="vbox-container template splitter">
+	<div class="wbox" style="padding-right: 5px;">
+		<div class="section-header">
+			<table cellpadding="0" cellspacing="0" width="100%">
+				<tr valign="center">
+					<td><img alt="" src="images/cleardot.gif" id=":or"
+						class="Wp Wi"> <span id="extensions_title" class="section-header-title">title</span> <span
+						class="section-header-title">(<span
+							id="extensions_length">0</span>)</span>
+					</td>
+					<td width="18" padding=""></td>
+					<td width="50" align="right"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+			<div class="content"> 
        <div class="extension-name no-extensions"> 
          <div class="i18n" id="label_no_extensions">NO_EXTENSIONS_ARE_INSTALLED</div> 
          <div id="try_gallery" class="i18n">TRY_GALLERY</div> 
        </div> 
 
-       <div id="template"> 
+<div id="template"> 
        
        <div class="extension"  > 
          <table width="100%" cellpadding="2" cellspacing="0" border="0"> 
@@ -295,7 +156,7 @@ function addListeners() {
              <span class="extension-actions"> 
                <span id="action_enable" class="action i18n hd">Enable</span> 
                <span id="action_disable" class="action i18n hd">Disable</span> 
-               <span class="hd">|</span> 
+               <span>|</span> 
                <span id="share_twitter" class="action i18nt" title="...">Twitter</span> 
                <span >-</span> 
                <span id="share_buzz" class="action i18nt" title="...">Buzz</span> 
@@ -313,7 +174,7 @@ function addListeners() {
          </tr> 
          </table> 
        </div> 
-       </div> 
+</div> 
 
      </div> 
    </div> 

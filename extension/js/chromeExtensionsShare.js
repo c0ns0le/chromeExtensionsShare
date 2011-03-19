@@ -14,6 +14,24 @@ function UserExtensions() {
 	this.countApps = function(){
 		return Object.keys(this.apps).length;
 	};
+	
+	this.getImageUrl = function(extensionInfo){
+		
+		var lastIconSize = 0;
+		var lastIconUrl = 'images/extension.png';
+
+		if (extensionInfo.enabled && extensionInfo.icons != undefined
+				&& extensionInfo.icons.length) {
+			for ( var j in extensionInfo.icons) {
+				if (lastIconSize < extensionInfo.icons[j].size) {
+					lastIconSize = extensionInfo.icons[j].size;
+					lastIconUrl = extensionInfo.icons[j].url;
+				}
+			}
+		}
+		
+		return lastIconUrl;
+	};
 
 }
 
@@ -130,27 +148,22 @@ function ExtensionsShare() {
 			}
 		} // for
 
-		$('.extension', this._template).removeClass('enabled').removeClass('app').removeClass('disabled');
-		$('.content').append(getSectionHeader(_i18n('section_header_title_enabled_extensions'), this._extensionInfos.countEnabled()));
+		$('.content').append(getSectionHeader(_i18n('section_header_title_enabled_extensions'), this._extensionInfos.countEnabled(),'enabled'));
 		for ( var i in this._extensionInfos.enabled) {
-			$('.content').append(populateData(this._template, this._extensionInfos.enabled[i]));
+			$('.content').append(this.populateData($(this._template).clone(), this._extensionInfos.enabled[i]));
 			//break;
 		}
 
-		$('.extension', this._template).removeClass('enabled').removeClass('app').removeClass('disabled');
-		$('.content').append(getSectionHeader(_i18n('section_header_title_disabled_extensions'), this._extensionInfos.countDisabled()));
-
+		$('.content').append(getSectionHeader(_i18n('section_header_title_disabled_extensions'), this._extensionInfos.countDisabled(),'disabled'));
 		for ( var i in this._extensionInfos.disabled) {
-			$('.content').append(populateData(this._template, this._extensionInfos.disabled[i]));
+			$('.content').append(this.populateData(this._template, this._extensionInfos.disabled[i]));
 			//break;
 		}
 
 
-		$('.extension', this._template).removeClass('enabled').removeClass('app').removeClass('disabled');
-		$('.content').append(getSectionHeader(_i18n('section_header_title_apps'), this._extensionInfos.countApps()));
-
+		$('.content').append(getSectionHeader(_i18n('section_header_title_apps'), this._extensionInfos.countApps(),'app'));
 		for ( var i in this._extensionInfos.apps) {
-			$('.content').append(populateData(this._template, this._extensionInfos.apps[i]));
+			$('.content').append(this.populateData(this._template, this._extensionInfos.apps[i]));
 			//break;
 		}
 
@@ -176,6 +189,54 @@ function ExtensionsShare() {
 			return this._extensionInfos.apps[id];
 		}
 
+	};
+	
+	
+	this.populateData = function(data, extensionInfo) {
+		//var data = template;
+		$('.extension', data).attr('id', extensionInfo.id);
+
+		if (extensionInfo.isApp) {
+			$('#icon', data).attr('src', this._extensionInfos.getImageUrl(extensionInfo));
+			$('.extension', data).addClass('app').removeClass('enabled').removeClass('disabled');
+			$('#action_disable', data).addClass('hd');
+			$('#action_enable', data).addClass('hd');
+
+		}else{
+			if (!extensionInfo.enabled) {
+				$('#icon', data).attr('src', 'images/extension_unknown.png');
+				$('.extension', data).addClass('disabled');
+				$('.extension', data).removeClass('enabled');
+				$('#action_disable', data).addClass('hd');
+				$('#action_enable', data).removeClass('hd');
+			} else {
+				$('#icon', data).attr('src', this._extensionInfos.getImageUrl(extensionInfo));
+				$('.extension', data).addClass('enabled');
+				$('.extension', data).removeClass('disabled');
+				$('#action_disable', data).removeClass('hd');
+				$('#action_enable', data).addClass('hd');
+			}
+		}
+
+
+		$('#name2', data).hide();
+		$('#name', data).html(extensionInfo.name);
+
+		$('.inspectPopupNote', data).html(extensionInfo.description);
+		$('.extension-description', data).html(extensionInfo.description);
+
+		$('#homepageUrl', data).attr('href',
+				'https://chrome.google.com/webstore/detail/' + extensionInfo.id);
+
+		$('#version', data).html(extensionInfo.version);
+		$('#enabled', data).hide();
+		$('#id', data).html(extensionInfo.id);
+
+		return data.html();
+	};
+	
+	this.getImageUrl = function(extensionInfo){
+		return this._extensionInfos.getImageUrl(extensionInfo);
 	};
 
 }
@@ -221,58 +282,6 @@ function sendTo(destination) {
 
 }
 
-function populateData(template, extensionInfo) {
-	var data = template;
-	$('.extension', data).attr('id', extensionInfo.id);
-
-	if (!extensionInfo.enabled) {
-		$('.extension', data).addClass('disabled');
-//		$('#action_enable', data).removeClass('hd');
-//		$('#action_disable', data).addClass('hd');
-
-	} else {
-		$('.extension', data).addClass('enabled');
-//		$('#action_disable', data).addClass('hd');
-//		$('#action_enable', data).removeClass('hd');
-	}
-
-	if (!extensionInfo.isApp) {
-		$('.extension', data).addClass('app');
-//		$('#action_enable', data).addClass('hd');
-//		$('#action_disable', data).addClass('hd');
-
-	}
-
-	$('#name2', data).hide();
-	$('#name', data).html(extensionInfo.name);
-
-	$('.inspectPopupNote', data).html(extensionInfo.description);
-	$('.extension-description', data).html(extensionInfo.description);
-
-	$('#homepageUrl', data).attr('href',
-			'https://chrome.google.com/webstore/detail/' + extensionInfo.id);
-
-	$('#version', data).html(extensionInfo.version);
-	$('#enabled', data).hide();
-	$('#id', data).html(extensionInfo.id);
-
-	var lastIconSize = 0;
-	var lastIconUrl = 'images/extension_unknown.png';
-
-	if (extensionInfo.enabled && extensionInfo.icons != undefined
-			&& extensionInfo.icons.length) {
-		for ( var j in extensionInfo.icons) {
-			if (lastIconSize < extensionInfo.icons[j].size) {
-				lastIconSize = extensionInfo.icons[j].size;
-				lastIconUrl = extensionInfo.icons[j].url;
-			}
-		}
-	}
-
-	$('#icon', data).attr('src', lastIconUrl);
-
-	return data.html();
-}
 
 function generateBBCode(extensionInfos, descriptionOn) {
 	var curdate = new Date();
@@ -509,6 +518,209 @@ function getWikiData(extensionInfo, descriptionOn) {
 	return result;
 }
 
-function getSectionHeader(title, count){
-	return '<div id="container" class="vbox-container" style="font-size: 100%;"> <div class="wbox" style="padding-right: 5px;"> <div class="section-header">       <table cellpadding="0" cellspacing="0" width="100%">      <tbody><tr valign="center">         <td>           <span class="section-header-title">' + title + '</span>          <span class="section-header-title">(<span id="extensions_length">' + count + '</span>)</span>        </td>        <td width="18" padding=""></td>         <td width="50" align="right">         </td>      </tr>       </tbody></table></div></div></div>';
+function getSectionHeader(title, count, set){
+	var header = $('#splitter-template').clone();
+	
+	$(header).removeClass('template');
+	$(header).attr('id','splitter-' + set);
+	$('#extensions_title', header).html(title);
+	$('#extensions_length', header).html(count);
+	return header;
+}
+
+chrome.management.onDisabled.addListener(function(extensionInfo) {
+	_gaq.push(['_trackPageview','/extensions/action/disable/' + extensionInfo.id + '/' + extensionInfo.name]);
+
+	//$('#' + extensionInfo.id).hide('blind');
+	
+	$('#' + extensionInfo.id + ' #icon').attr('src','images/extension_unknown.png');
+	
+	
+	$('#action_enable', $('#' + extensionInfo.id)).show();
+	
+	extensionsShare._extensionInfos.disabled[extensionInfo.id] = extensionsShare._extensionInfos.enabled[extensionInfo.id];
+	delete extensionsShare._extensionInfos.enabled[extensionInfo.id];
+
+});
+
+chrome.management.onEnabled.addListener(function(extensionInfo) {
+	_gaq.push(['_trackPageview','/extensions/action/enable/' + extensionInfo.id + '/' + extensionInfo.name]);
+
+	//$('#' + extensionInfo.id).hide('blind');
+	$('#action_disable', $('#' + extensionInfo.id)).show();
+
+	$('#' + extensionInfo.id + ' #icon').attr('src',extensionsShare.getImageUrl(extensionInfo));
+
+	
+	extensionsShare._extensionInfos.enabled[extensionInfo.id] = extensionsShare._extensionInfos.disabled[extensionInfo.id];
+	delete extensionsShare._extensionInfos.disabled[extensionInfo.id];
+});
+
+///////////////////////// html JS /////////////////////////////////
+
+function doI18n(){
+	 
+	$('[nodeName=title]').html(_i18n('default_title'));
+	
+	$('.i18n').each(function(){
+		$(this).html(_i18n($(this).attr('id')));
+	});
+	
+	$('.i18nt').each(function(){
+		$(this).attr('title',_i18n($(this).attr('id')));
+	});
+
+}
+
+
+function addListeners() {
+	$('.Wp').toggle(function() {
+		$(this).addClass('Wo').removeClass('Wi');
+		$('.extension.' + $(this).parents('.splitter').attr('id').replace("splitter-", "")).addClass('hd');
+		
+	}, function() {
+		$(this).addClass('Wi').removeClass('Wo');
+		$('.extension.' + $(this).parents('.splitter').attr('id').replace("splitter-", "")).removeClass('hd');
+		
+	});
+	
+	$(".action").tipTip({maxWidth: "auto", edgeOffset: 2, fadeIn: 0, fadeOut: 0});
+	
+	$('#description').click(function(){
+		
+		_gaq.push(['_trackPageview','/option/description/' + extensionsShare.getLastExportType() + '/' + $('#description').val()]);
+		
+		extensionsShare.reExport();	
+	});
+	
+	
+	/*
+	 * close dialog on widget overlay click
+	 */
+	 $('.ui-widget-overlay').live("click", function() {
+         $("#dialog-modal").dialog("close");
+      });  
+	
+	
+	$('.extension').hover(function() {
+		$('.extension-actions',this).show();	
+	}, function() {
+		$('.extension-actions',this).hide();	
+	}).click(function() {
+		
+		if($(this).hasClass('selected')){
+			$(this).removeClass('selected');
+		}else{
+			$(this).addClass('selected');
+		}
+		
+	});
+	
+	$('.stars').toggle(function() {
+		$(this).addClass('selected');
+		$(this).parents('.extension').addClass('selected');
+		
+	}, function() {
+		$(this).removeClass('selected');
+		$(this).parents('.extension').removeClass('selected');
+	});
+
+	$('span#share_twitter').click(function() {
+
+		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
+
+		if(extensionInfo == null){
+			return;
+		}
+		var subject = ' Chrome Extension';
+		if (extensionInfo.isApp){
+			subject = ' Chrome App';
+		}
+
+		_gaq.push(['_trackPageview','/extensions/share/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
+	
+		var text = encodeURIComponent(extensionInfo.name + subject) + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id);
+		var via = '';
+		 window.open('http://twitter.com/share?_=1299226766058&count=horizontal&text=' + text + '&via=' + via);
+		
+		 return false;
+	});
+	
+	$('span#share_buzz').click(function() {
+		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
+
+		if(extensionInfo == null){
+			return;
+		}
+		
+		var subject = ' Chrome Extension';
+		if (extensionInfo.isApp){
+			subject = ' Chrome App';
+		}
+
+		_gaq.push(['_trackPageview','/extensions/buzz/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
+		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + subject) + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
+		return false;
+	});
+	
+	$('span#share_gmail').click(function() {
+		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
+		
+		if(extensionInfo == null){
+			return;
+		}
+			
+		var subject = _i18n('title_export_mail');
+		if (extensionInfo.isApp){
+			subject = _i18n('title_export_mail_app');
+		}
+			
+		_gaq.push(['_trackPageview','/extensions/share/mail/' + extensionInfo.id + '/' + extensionInfo.name]);
+		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + encodeURIComponent(subject)
+				+ '&body=' + encodeURIComponent(getDescriptionText(extensionInfo, true)));
+
+		return false;
+	});
+
+	$('span#share_glist').click(function() {
+		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
+		
+		if(extensionInfo == null){
+			return;
+		}
+			
+		var subject = _i18n('title_export_mail');
+		if (extensionInfo.isApp){
+			subject = _i18n('title_export_mail_app');
+		}
+			
+		_gaq.push(['_trackPageview','/extensions/share/glist/' + extensionInfo.id + '/' + extensionInfo.name]);
+		
+		window.open('https://www.google.com/bookmarks/api/bookmarklet?output=popup'
+			+ '&srcUrl=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id)
+			+ '&snippet=' + encodeURIComponent(extensionInfo.description)
+			+ '&title=' + encodeURIComponent(extensionInfo.name));
+		
+		return false;
+	});
+
+
+	$('span#action_enable').click(function() {
+
+		$(this).hide();
+
+		chrome.management.setEnabled($(this).parents('.extension').attr('id'), true);
+		
+		return false;
+	});
+	
+	$('span#action_disable').click(function() {
+		$(this).hide();
+		
+		chrome.management.setEnabled($(this).parents('.extension').attr('id'), false);
+	
+		return false;
+	});
+	
+	
 }
