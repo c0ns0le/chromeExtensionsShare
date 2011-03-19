@@ -640,7 +640,7 @@ function addListeners() {
 		_gaq.push(['_trackPageview','/extensions/share/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
 	
 		var text = encodeURIComponent(extensionInfo.name + subject) + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id);
-		var via = '';
+		var via = 'ShareExtensions';
 		 window.open('http://twitter.com/share?_=1299226766058&count=horizontal&text=' + text + '&via=' + via);
 		
 		 return false;
