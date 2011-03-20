@@ -3,7 +3,7 @@
 		"message": "Share Extensions"
 	},
 	"ext_description": {
-		"message": "Export Chrome extensions you like as BBCode, HTML, Wiki or Text list for your Blog. Or share the Extensions via Twitter, Google Buzz™, Google Mail™ and to Google Bookmarks™ lists. Also you can directly enable/disable extensions."
+		"message": "Export your favorite Google Chrome™ extensions as BBCode, HTML, Wiki or text list for your Blog. Share the extensions via Twitter, Google Buzz™, Google Mail™ or add them to Google Bookmarks™ lists. Also you can directly enable/disable your extensions."
 	},
 	"default_title": {
 		"message": "Extensions"
@@ -84,7 +84,7 @@
 		"message": "Exported with [https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe Chrome Extensions Share]"
 	},
 	"label_exported_via_text": {
-		"message": "Exported with Chrome Extensions Share - https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe"
+		"message": "Exported with Share Extensions for Google Chrome™ - https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe"
 	},
 	"title_export_mail": {
 		"message": "Here are my selected Chrome Extensions"
