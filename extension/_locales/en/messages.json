@@ -1,9 +1,9 @@
 {
 	"ext_name": {
-		"message": "Extensions Share for Google Chrome™"
+		"message": "Share Extensions"
 	},
 	"ext_description": {
-		"message": "Export Chrome extensions you like as BBCode, HTML, Wiki or Text list for your Blog. Or share the Extensions via Twitter, Google Buzz™ and Google Mail™"
+		"message": "Export Chrome extensions you like as BBCode, HTML, Wiki or Text list for your Blog. Or share the Extensions via Twitter, Google Buzz™, Google Mail™ and to Google Bookmarks™ lists. Also you can directly enable/disable extensions."
 	},
 	"default_title": {
 		"message": "Extensions"
@@ -88,6 +88,12 @@
 	},
 	"title_export_mail": {
 		"message": "Here are my selected Chrome Extensions"
+	},
+	"export_mail_size_warning": {
+		"message": "You are trying to send large amount of data.\nThe \"Send via GMail\" function has size restrictions.\nIt's possible that you will get an error \"Request-URI Too Large\".\n\nGive a try?"
+	},
+	"export_mail_size_warning_body": {
+		"message": "<Please copy-paste your extensions list here>"
 	},
 	"title_export_mail_app": {
 		"message": "Here are my selected Chrome App"

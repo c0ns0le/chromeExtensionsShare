@@ -84,7 +84,7 @@ function ExtensionsShare() {
 
 		_gaq.push([
 		           '_trackPageview',
-		           '/extensions/export/' + type + '/' + selectedExtensions.length
+		           '/extensions/export/' + type + '/' + selectedExtensions.countSelected()
 		           + '/' ]);
 
 		switch (type) {
@@ -276,9 +276,25 @@ function select(type) {
 }
 
 function sendTo(destination) {
-	_gaq.push([ '_trackPageview', '/extensions/export/gmail/' ]);
-	window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su='
-			+ _subject + '&body=' + encodeURIComponent($('#export').val()));
+	
+	var body = encodeURIComponent($('#export').val());
+	console.log(body.length);
+	
+	var answer = true;
+	
+	if(body.length > 1793){
+		answer = confirm (_i18n('export_mail_size_warning'));		
+	}
+
+	
+	if (answer){
+		_gaq.push([ '_trackPageview', '/extensions/export/gmail/' ]);
+		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su='
+				+ encodeURIComponent(_i18n('title_export_mail')) + '&body=' + body);
+	}
+
+	
+	return false;
 
 }
 
@@ -658,7 +674,7 @@ function addListeners() {
 			subject = ' Chrome App';
 		}
 
-		_gaq.push(['_trackPageview','/extensions/buzz/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
+		_gaq.push(['_trackPageview','/extensions/share/buzz/' + extensionInfo.id + '/' + extensionInfo.name]);
 		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + subject) + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
 		return false;
 	});
