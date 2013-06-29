@@ -6,6 +6,15 @@ body {
 	font-size: 0.82em;
 }
 
+.no-select
+{
+   user-select: none;
+   -o-user-select:none;
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+}
+
 div.extension.selected {
 	background: -moz-linear-gradient(100% 100% 90deg, #F4F4F4, #E4E4E4);
 	background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#F4F4F4),
@@ -15,7 +24,7 @@ div.extension.selected {
 }
 
 div.extension.selected .stars {
-	background-position: -30px 0px;
+	background-position: -30px 0;
 }
 
 .pointer {
@@ -34,14 +43,14 @@ div.extension.selected .stars {
 	background: transparent;
 	cursor: pointer;
 	/*
-	background-position: -15px 0px;
+	background-position: -15px 0;
 	background-image: url('../images/sprite.png');
 	*/
 	background: url('../images/superstars_2.png') no-repeat -90px 0;
 }
 
 /* ### selector #### */
-#filter,#sort,.right {
+#filter, #sort,.right {
 	float: right;
 	position: relative;
 }
@@ -57,7 +66,6 @@ div.extension.selected .stars {
 	border-left: 1px solid #aaa;
 	cursor: pointer;
 	border-radius: 3px;
-	-moz-border-radius: 3px;
 	display: block;
 	padding: 4px 8px 4px 10px;
 	margin: 0;
@@ -102,9 +110,6 @@ div.extension.selected .stars {
 	display: none;
 	position: absolute;
 	border: 1px solid #bbb;
-	padding: 1em;
-	-moz-box-shadow: 2px 5px 5px #ccc;
-	-webkit-box-shadow: 2px 5px 5px #ccc;
 	box-shadow: 2px 5px 5px #ccc;
 	background: #fff;
 	padding: 0;
@@ -125,7 +130,7 @@ div.extension.selected .stars {
 }
 
 .listoptions li {
-	
+
 }
 
 .listoptions li a {
@@ -146,13 +151,14 @@ div.extension.selected .stars {
 	font-size: 1em;
 }
 
-#filter,#sort {
+#filter, #sort {
 	float: right;
 	position: relative;
 }
 
 .extension {
-	height: 60px;
+	min-height: 60px;
+	padding:  5px 0 5px 0;
 }
 
 .extension-actions-div {
@@ -198,7 +204,7 @@ div.extension.selected .stars {
 }
 
 .nav .selected:first-child:hover a {
-	
+
 }
 
 .nav li:hover a {
@@ -239,18 +245,14 @@ div.extension.selected .stars {
 .nav li:first-child {
 	border-left: 1px solid #aaa;
 	border-top-left-radius: 3px;
-	-moz-border-radius-topleft: 3px;
 	border-bottom-left-radius: 3px;
-	-moz-border-radius-bottomleft: 3px;
 }
 
 .nav li:last-child {
 	border-right: none;
 	border-right: 1px solid #bbb;
 	border-top-right-radius: 3px;
-	-moz-border-radius-topright: 3px;
 	border-bottom-right-radius: 3px;
-	-moz-border-radius-bottomright: 3px;
 }
 
 .nav li:first-child a {
@@ -261,9 +263,9 @@ div.extension.selected .stars {
 */
 .content2 {
 	background-color: #fff;
-	-webkit-border-bottom-right-radius: 1em;
-	-webkit-border-bottom-left-radius: 1em;
-	-webkit-box-shadow: rgba(0, 0, 0, .25) 0 .15em 1em;
+	border-bottom-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+	box-shadow: rgba(0, 0, 0, .25) 0 .15em 1em;
 	overflow: auto;
 	margin-top: 2em;
 	padding: 2em 1em 1em 1em;

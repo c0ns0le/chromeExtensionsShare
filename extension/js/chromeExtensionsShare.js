@@ -14,9 +14,9 @@ function UserExtensions() {
 	this.countApps = function(){
 		return Object.keys(this.apps).length;
 	};
-	
+
 	this.getImageUrl = function(extensionInfo){
-		
+
 		var lastIconSize = 0;
 		var lastIconUrl = 'images/extension.png';
 
@@ -29,7 +29,7 @@ function UserExtensions() {
 				}
 			}
 		}
-		
+
 		return lastIconUrl;
 	};
 
@@ -190,8 +190,8 @@ function ExtensionsShare() {
 		}
 
 	};
-	
-	
+
+
 	this.populateData = function(data, extensionInfo) {
 		//var data = template;
 		$('.extension', data).attr('id', extensionInfo.id);
@@ -234,7 +234,7 @@ function ExtensionsShare() {
 
 		return data.html();
 	};
-	
+
 	this.getImageUrl = function(extensionInfo){
 		return this._extensionInfos.getImageUrl(extensionInfo);
 	};
@@ -249,8 +249,8 @@ function selectAll(select) {
 	}
 }
 
-function select(type) {
-
+function selectExtensions(type) {
+	console.log('select', type);
 	_gaq.push([ '_trackPageview', '/extensions/select/' + type + '/' ]);
 
 	switch (type) {
@@ -260,7 +260,7 @@ function select(type) {
 	case 'none':
 		$('.extension').removeClass('selected');
 		break;
-	case 'reverse':
+	case 'revert':
 		$('.extension').each(function() {
 			if ($(this).hasClass('selected')) {
 				$(this).removeClass('selected');
@@ -276,24 +276,24 @@ function select(type) {
 }
 
 function sendTo(destination) {
-	
+
 	var body = encodeURIComponent($('#export').val());
 	console.log(body.length);
-	
+
 	var answer = true;
-	
+
 	if(body.length > 1793){
-		answer = confirm (_i18n('export_mail_size_warning'));		
+		answer = confirm (_i18n('export_mail_size_warning'));
 	}
 
-	
+
 	if (answer){
 		_gaq.push([ '_trackPageview', '/extensions/export/gmail/' ]);
 		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su='
 				+ encodeURIComponent(_i18n('title_export_mail')) + '&body=' + body);
 	}
 
-	
+
 	return false;
 
 }
@@ -397,7 +397,7 @@ function generateHTML(extensionInfos, descriptionOn) {
 		var extensionInfo = extensionInfos.apps[i];
 		result = result + getHTMLData(extensionInfo, descriptionOn);
 	}
-	result = result + '</ul>\n';	
+	result = result + '</ul>\n';
 
 
 
@@ -536,7 +536,7 @@ function getWikiData(extensionInfo, descriptionOn) {
 
 function getSectionHeader(title, count, set){
 	var header = $('#splitter-template').clone();
-	
+
 	$(header).removeClass('template');
 	$(header).attr('id','splitter-' + set);
 	$('#extensions_title', header).html(title);
@@ -548,12 +548,12 @@ chrome.management.onDisabled.addListener(function(extensionInfo) {
 	_gaq.push(['_trackPageview','/extensions/action/disable/' + extensionInfo.id + '/' + extensionInfo.name]);
 
 	//$('#' + extensionInfo.id).hide('blind');
-	
+
 	$('#' + extensionInfo.id + ' #icon').attr('src','images/extension_unknown.png');
-	
-	
+
+
 	$('#action_enable', $('#' + extensionInfo.id)).show();
-	
+
 	extensionsShare._extensionInfos.disabled[extensionInfo.id] = extensionsShare._extensionInfos.enabled[extensionInfo.id];
 	delete extensionsShare._extensionInfos.enabled[extensionInfo.id];
 
@@ -567,7 +567,7 @@ chrome.management.onEnabled.addListener(function(extensionInfo) {
 
 	$('#' + extensionInfo.id + ' #icon').attr('src',extensionsShare.getImageUrl(extensionInfo));
 
-	
+
 	extensionsShare._extensionInfos.enabled[extensionInfo.id] = extensionsShare._extensionInfos.disabled[extensionInfo.id];
 	delete extensionsShare._extensionInfos.disabled[extensionInfo.id];
 });
@@ -575,13 +575,13 @@ chrome.management.onEnabled.addListener(function(extensionInfo) {
 ///////////////////////// html JS /////////////////////////////////
 
 function doI18n(){
-	 
+
 	$('[nodeName=title]').html(_i18n('default_title'));
-	
+
 	$('.i18n').each(function(){
 		$(this).html(_i18n($(this).attr('id')));
 	});
-	
+
 	$('.i18nt').each(function(){
 		$(this).attr('title',_i18n($(this).attr('id')));
 	});
@@ -593,49 +593,49 @@ function addListeners() {
 	$('.Wp').toggle(function() {
 		$(this).addClass('Wo').removeClass('Wi');
 		$('.extension.' + $(this).parents('.splitter').attr('id').replace("splitter-", "")).addClass('hd');
-		
+
 	}, function() {
 		$(this).addClass('Wi').removeClass('Wo');
 		$('.extension.' + $(this).parents('.splitter').attr('id').replace("splitter-", "")).removeClass('hd');
-		
+
 	});
-	
+
 	$(".action").tipTip({maxWidth: "auto", edgeOffset: 2, fadeIn: 0, fadeOut: 0});
-	
+
 	$('#description').click(function(){
-		
+
 		_gaq.push(['_trackPageview','/option/description/' + extensionsShare.getLastExportType() + '/' + $('#description').val()]);
-		
-		extensionsShare.reExport();	
+
+		extensionsShare.reExport();
 	});
-	
-	
+
+
 	/*
 	 * close dialog on widget overlay click
 	 */
 	 $('.ui-widget-overlay').live("click", function() {
          $("#dialog-modal").dialog("close");
-      });  
-	
-	
+      });
+
+
 	$('.extension').hover(function() {
-		$('.extension-actions',this).show();	
+		$('.extension-actions',this).show();
 	}, function() {
-		$('.extension-actions',this).hide();	
+		$('.extension-actions',this).hide();
 	}).click(function() {
-		
+
 		if($(this).hasClass('selected')){
 			$(this).removeClass('selected');
 		}else{
 			$(this).addClass('selected');
 		}
-		
+
 	});
-	
+
 	$('.stars').toggle(function() {
 		$(this).addClass('selected');
 		$(this).parents('.extension').addClass('selected');
-		
+
 	}, function() {
 		$(this).removeClass('selected');
 		$(this).parents('.extension').removeClass('selected');
@@ -654,21 +654,21 @@ function addListeners() {
 		}
 
 		_gaq.push(['_trackPageview','/extensions/share/twitter/' + extensionInfo.id + '/' + extensionInfo.name]);
-	
+
 		var text = encodeURIComponent(extensionInfo.name + subject) + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id);
 		var via = 'ShareExtensions';
 		 window.open('http://twitter.com/share?_=1299226766058&count=horizontal&text=' + text + '&via=' + via);
-		
+
 		 return false;
 	});
-	
+
 	$('span#share_buzz').click(function() {
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
 
 		if(extensionInfo == null){
 			return;
 		}
-		
+
 		var subject = ' Chrome Extension';
 		if (extensionInfo.isApp){
 			subject = ' Chrome App';
@@ -678,19 +678,19 @@ function addListeners() {
 		window.open('http://www.google.com/buzz/post?message=' + encodeURIComponent(extensionInfo.name + subject) + '&imageurl=' + encodeURIComponent('https://chrome.google.com/webstore/img/'+ extensionInfo.id + '/2323432/logo128') + '&url=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id));
 		return false;
 	});
-	
+
 	$('span#share_gmail').click(function() {
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-		
+
 		if(extensionInfo == null){
 			return;
 		}
-			
+
 		var subject = _i18n('title_export_mail');
 		if (extensionInfo.isApp){
 			subject = _i18n('title_export_mail_app');
 		}
-			
+
 		_gaq.push(['_trackPageview','/extensions/share/mail/' + extensionInfo.id + '/' + extensionInfo.name]);
 		window.open('https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' + encodeURIComponent(subject)
 				+ '&body=' + encodeURIComponent(getDescriptionText(extensionInfo, true)));
@@ -700,23 +700,23 @@ function addListeners() {
 
 	$('span#share_glist').click(function() {
 		var extensionInfo = extensionsShare.getExtensionInfoById($(this).parents('.extension').attr('id'));
-		
+
 		if(extensionInfo == null){
 			return;
 		}
-			
+
 		var subject = _i18n('title_export_mail');
 		if (extensionInfo.isApp){
 			subject = _i18n('title_export_mail_app');
 		}
-			
+
 		_gaq.push(['_trackPageview','/extensions/share/glist/' + extensionInfo.id + '/' + extensionInfo.name]);
-		
+
 		window.open('https://www.google.com/bookmarks/api/bookmarklet?output=popup'
 			+ '&srcUrl=' + encodeURIComponent('https://chrome.google.com/webstore/detail/'+ extensionInfo.id)
 			+ '&snippet=' + encodeURIComponent(extensionInfo.description)
 			+ '&title=' + encodeURIComponent(extensionInfo.name));
-		
+
 		return false;
 	});
 
@@ -726,17 +726,17 @@ function addListeners() {
 		$(this).hide();
 
 		chrome.management.setEnabled($(this).parents('.extension').attr('id'), true);
-		
+
 		return false;
 	});
-	
+
 	$('span#action_disable').click(function() {
 		$(this).hide();
-		
+
 		chrome.management.setEnabled($(this).parents('.extension').attr('id'), false);
-	
+
 		return false;
 	});
-	
-	
+
+
 }
