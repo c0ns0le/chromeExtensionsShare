@@ -19,6 +19,11 @@ div#header {
 	position: relative;
 	-webkit-box-sizing: border-box;
 }
+div#header form {
+	position: absolute;
+	top: 41px;
+	left: 105px;
+}
 
 html[dir=rtl] #header {
 	padding-right: 0;

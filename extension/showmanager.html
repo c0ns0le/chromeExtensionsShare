@@ -16,7 +16,15 @@
 <body class="no-select">
  <div id="body-container" style="visibility:visible;">
 
-   <div id="header"><h1 id="i18n_header" class="i18n">Share Extensions</h1></div>
+   <div id="header">
+
+       <h1 id="i18n_header" class="i18n">Share Extensions</h1>
+       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+           <input type="hidden" name="cmd" value="_s-xclick">
+           <input type="hidden" name="hosted_button_id" value="PNRFLKFDS9Y44">
+           <input type="image" src="images/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+       </form>
+   </div>
 
    <div id="extensionTemplate">
 
@@ -44,10 +52,11 @@
 
       <ul class="nav">
       	<li class="selected"><a class="i18n" id="label_export">Export:</a></li>
-      	         <li class="label_export"><a  data-exportto="bbcode">BBCode</a></li>
+          <li class="label_export"><a  data-exportto="bbcode">BBCode</a></li>
 		<li class="label_export"><a data-exportto="html">HTML</a></li>
 		<li class="label_export"><a data-exportto="text">Text</a></li>
 		<li class="label_export"><a data-exportto="wiki">Wiki</a></li>
+		<li class="label_export"><a data-exportto="markdown">Markdown</a></li>
 	 </ul>
 
 	 <div id="filter" class="listoptions">
@@ -143,22 +152,22 @@
    </div>
  </div>
 
-	<div id="dialog-modal" title="Export" class="hd" style="overflow: hidden;">
+	<div id="dialog-modal" title="Export" class="-dialog-export hd" style="overflow: hidden;">
 		<div>
 		 <ul id="nav2" class="nav">
-	      	<!-- li class="bbcode"><a onclick="extensionsShare.exportTo('bbcode')">BBCODE</a></li>
-			<li class="html"><a onclick="extensionsShare.exportTo('html')">HTML</a></li>
-			<li class="text"><a onclick="extensionsShare.exportTo('text')">TEXT</a></li>
-			<li class="wiki"><a onclick="extensionsShare.exportTo('wiki')">Wiki</a></li -->
-                 <li class="label_export"><a  data-exportto="bbcode">BBCode</a></li>
+                 <li class="label_export"><a data-exportto="bbcode">BBCode</a></li>
                 <li class="label_export"><a data-exportto="html">HTML</a></li>
                 <li class="label_export"><a data-exportto="text">Text</a></li>
                 <li class="label_export"><a data-exportto="wiki">Wiki</a></li>
+                <li class="label_export"><a data-exportto="markdown">Markdown</a></li>
 
 		 </ul>
-		 <div id="nav2" class="nav"><input type="checkbox" id="description">
+		 <div class="nav"><input type="checkbox" id="description">
 		 <label for="description" class="i18n" id="label_description" >include description</label>
 		 </div>
+         <div class="nav"><input type="checkbox" id="export_include_version">
+            <label for="export_include_version" class="i18n" id="label_export_include_version" >include version</label>
+         </div>
 
 		 <div class="right"><ul class="nav">
 		    <li class=""><a data-sendto="gmail" class="i18n" id="label_send_via_gmail">send via gmail</a></li>

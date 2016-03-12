@@ -2,8 +2,11 @@
 	"ext_name": {
 		"message": "Share Extensions"
 	},
+    "ext_name_full": {
+		"message": "Share Extensions for Google Chrome™"
+	},
 	"ext_description": {
-		"message": "Export your favorite Google Chrome™ extensions as BBCode, HTML, Wiki or text list for your Blog. Share the extensions via Twitter, Google Buzz™, Google Mail™ or add them to Google Bookmarks™ lists. Also you can directly enable/disable your extensions."
+		"message": "Export your favorite Google Chrome™ extensions as BBCode, HTML, Wiki, Markdown or text. Share extensions via Twitter, Google Mail™."
 	},
 	"default_title": {
 		"message": "Extensions"
@@ -53,6 +56,9 @@
 	"label_description": {
 		"message": "include description"
 	},
+	"label_export_include_version": {
+		"message": "include version"
+	},
 	"label_send_via_gmail": {
 		"message": "Send via GMail"
 	},
@@ -74,18 +80,12 @@
 	"title_export_html": {
 		"message": "My Google Chrome™ Extensions"
 	},
-	"label_exported_via_bbcode": {
-		"message": "Exported with [url=https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe]Chrome Extensions Share[/url]"
-	},
-	"label_exported_via_html": {
-		"message": "Exported with <a href=\"https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe\" target=\"_blank\">Chrome Extensions Share</a>"
-	},
-	"label_exported_via_wiki": {
-		"message": "Exported with [https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe Chrome Extensions Share]"
-	},
-	"label_exported_via_text": {
-		"message": "Exported with Share Extensions for Google Chrome™ - https://chrome.google.com/webstore/detail/chdafcbnfkfenoeejpaeenpdamhmalhe"
-	},
+    "extension_id": {
+      "message": "chdafcbnfkfenoeejpaeenpdamhmalhe"
+    },
+    "exported_via": {
+      "message": "Exported with"
+    },
 	"title_export_mail": {
 		"message": "Here are my selected Chrome Extensions"
 	},
