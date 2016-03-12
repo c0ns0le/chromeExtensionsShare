@@ -1,0 +1,14 @@
+{
+  "name": "chrome-extension-share",
+  "private": true,
+  "version": "0.1.2",
+  "dependencies": {
+    "jquery": "^2.2.1",
+    "jquery-ui": "^1.11.4",
+    "jquery-tiptip": "*"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}

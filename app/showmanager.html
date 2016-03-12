@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html i18n-values="dir:textdirection;">
+<head>
+  <meta charset="utf-8">
+  <title>Your Extensions</title>
+
+  <link rel="stylesheet" href="styles/extensions.css" type="text/css" media="all"/>
+  <link rel="stylesheet" href="styles/content.css" type="text/css" media="all"/>
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/humanity/jquery-ui.min.css" type="text/css"
+        media="all"/>
+  <link rel="stylesheet" href="bower_components/jquery-tiptip/tipTip.css" type="text/css" media="all"/>
+
+  <link rel="icon"
+        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEMDI5OEI1MDkyMzhFMDExODc3QUVENDc0RDk1RjU1QyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozQjIzQUMxODQ5MEMxMUUwQTUxMDlCQTExMTc2QjBBNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozQjIzQUMxNzQ5MEMxMUUwQTUxMDlCQTExMTc2QjBBNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3MiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNkREQTFERDA0NDlFMDExOEEyRkMyQzZDQzUzNjQ1QiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEMDI5OEI1MDkyMzhFMDExODc3QUVENDc0RDk1RjU1QyIvPiA8L3JkZjpEZXNjcmlwdGlv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">
+
+
+</head>
+<body class="no-select">
+<div id="body-container" style="visibility:visible;">
+
+  <div id="header">
+
+    <h1 id="i18n_header" class="i18n">Share Extensions</h1>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="PNRFLKFDS9Y44">
+      <input type="image" src="images/btn_donate_LG.gif" border="0" name="submit"
+             alt="PayPal - The safer, easier way to pay online!">
+    </form>
+  </div>
+
+  <div id="extensionTemplate">
+
+    <div id="container" class="vbox-container">
+      <div id="top" class="wbox" style="padding-right: 5px">
+
+        <div class="section-header">
+          <table cellpadding="0" cellspacing="0" width="100%">
+            <tr valign="center">
+              <td>
+                <span id="section_header_title" class="section-header-title i18n">Extensions</span>
+                <span class="section-header-title">(<span id="extensions_length"></span>)</span>
+              </td>
+              <td width="18" padding=""></td>
+              <td width="50" align="right">
+                <div class="developer-mode-link"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <div id="developer_tools" class="wbox-dev-mode">
+        <div class="developer-mode">
+
+          <ul class="nav">
+            <li class="selected"><a class="i18n" id="label_export">Export:</a></li>
+            <li class="label_export"><a data-exportto="bbcode">BBCode</a></li>
+            <li class="label_export"><a data-exportto="html">HTML</a></li>
+            <li class="label_export"><a data-exportto="text">Text</a></li>
+            <li class="label_export"><a data-exportto="wiki">Wiki</a></li>
+            <li class="label_export"><a data-exportto="markdown">Markdown</a></li>
+          </ul>
+
+          <div id="filter" class="listoptions">
+            <h3><span class="i18n" id="label_select">Select: <strong>All</strong></span></h3>
+            <ul>
+              <li><a class="pointer i18n label_select" data-select="all">All</a></li>
+              <li><a class="pointer i18n label_select" data-select="none">None</a></li>
+              <li><a class="pointer i18n label_select" data-select="revert">Reverse</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="splitter-template" class="vbox-container template splitter">
+      <div class="wbox" style="padding-right: 5px;">
+        <div class="section-header">
+          <table cellpadding="0" cellspacing="0" width="100%">
+            <tr valign="center">
+              <td><img alt="" src="images/cleardot.gif" id=":or"
+                       class="Wp Wi"> <span id="extensions_title" class="section-header-title">title</span> <span
+                class="section-header-title">(<span
+                id="extensions_length">0</span>)</span>
+              </td>
+              <td width="18" padding=""></td>
+              <td width="50" align="right"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="extension-name no-extensions">
+        <div class="i18n" id="label_no_extensions">NO_EXTENSIONS_ARE_INSTALLED</div>
+        <div id="try_gallery" class="i18n">TRY_GALLERY</div>
+      </div>
+
+      <div id="template">
+
+        <div class="extension">
+          <table width="100%" cellpadding="2" cellspacing="0" border="0">
+            <tr>
+              <td width="62" height="50" align="center" valign="top">
+                <span><img id="icon" width="48" height="48"></span>
+              </td>
+              <td valign="top">
+                <div>
+                  <a id="homepageUrl" target="_blank"><span class="extension-name" id="name">EXTENSION_NAME</span></a>
+                  <span class="extension-name" id="name2">EXTENSION_NAME</span> - <span id="label_version" class="i18n">VERSION</span>
+                  <span id="version">x.x.x.x</span>
+                  <span id="enabled" class="i18n">(DISABLED)</span>
+                </div>
+
+                <div class="extension-description"></div>
+                <div class="showInDevMode">
+                  <div class="extension-details">
+                    <span>ID_LABEL: </span>
+                    <span id="id"></span>
+                  </div>
+                  <div class="extension-details">
+                    <ul class="extension-views">
+                      <li class="inspectPopupNote">INSPECT POPUP INSRUCTIONS</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="extension-actions-div">
+             <span class="extension-actions">
+               <span id="action_enable" class="action i18n hd">Enable</span>
+               <span id="action_disable" class="action i18n hd">Disable</span>
+               <span>|</span>
+               <span id="share_twitter" class="action i18nt" title="...">Twitter</span>
+               <!-- span >-</span>
+               <span id="share_buzz" class="action i18nt" title="...">Buzz</span -->
+               <span>-</span>
+               <span id="share_gmail" class="action i18nt" title="...">GMail</span>
+               <!-- span >-</span>
+               <span id="share_glist" class="action i18nt" title="...">Add to list</span -->
+
+               </span>
+                </div>
+              </td>
+              <td width="50" height="50" align="center" valign="middle">
+                <div class="star">...</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="dialog-modal" title="Export" class="-dialog-export hd" style="overflow: hidden;">
+  <div>
+    <ul id="nav2" class="nav">
+      <li class="label_export"><a data-exportto="bbcode">BBCode</a></li>
+      <li class="label_export"><a data-exportto="html">HTML</a></li>
+      <li class="label_export"><a data-exportto="text">Text</a></li>
+      <li class="label_export"><a data-exportto="wiki">Wiki</a></li>
+      <li class="label_export"><a data-exportto="markdown">Markdown</a></li>
+
+    </ul>
+    <div class="nav"><input type="checkbox" id="description">
+      <label for="description" class="i18n" id="label_description">include description</label>
+    </div>
+    <div class="nav"><input type="checkbox" id="export_include_version">
+      <label for="export_include_version" class="i18n" id="label_export_include_version">include version</label>
+    </div>
+
+    <div class="right">
+      <ul class="nav">
+        <li class=""><a data-sendto="gmail" class="i18n" id="label_send_via_gmail">send via gmail</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <textarea id="export" style="width:760px;height:500px"></textarea>
+</div>
+
+
+<script src="scripts/analytics.js"></script>
+<script src="scripts/chromeExtensionsShare.js"></script>
+<script type="text/javascript" src="scripts/i18n.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-tiptip/jquery.tipTip.minified.js"></script>
+<script type="text/javascript" src="scripts/showmanager.js"></script>
+
+</body>
+</html>
